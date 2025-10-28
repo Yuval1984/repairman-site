@@ -1,0 +1,253 @@
+<!-- HERO -->
+<header class="hero" itemscope itemtype="https://schema.org/Electrician">
+  <!-- Photo column -->
+  <div class="hero__media">
+    <img src="/assets/electrician.jpg" alt="Licensed electrician holding tools" />
+  </div>
+
+  <!-- Text column -->
+  <div class="hero__copy">
+    <h1 class="hero__title"><span class="strong">'טכנו גו</span><br />חשמלאי מוסמך</h1>
+    <p class="hero__lead">שירותי חשמל לביתך ולעסק</p>
+
+    <ul class="hero__bullets">
+      <li>רישיון #975186</li>
+      <li>שירות מהיר ומאובטח</li>
+      <li>אחריות מלאה</li>
+      <li>מחירים מסתדרים</li>
+    </ul>
+
+    <div class="hero__cta">
+      <button class="btn btn--dark" (click)="scrollToContact()">הזמן ביקור</button>
+      <a
+        class="btn btn--yellow"
+        href="tel:+972544818383"
+        itemprop="telephone"
+        content="+972544818383"
+      >
+        התקשר: 054-481-8383
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="section__inner">
+    <h2 class="section__title">השירותים שלי</h2>
+    <div class="cards">
+      <article class="card">
+        <div class="ic">⚡</div>
+        <h3>תיקון חשמלי ואדימה</h3>
+      </article>
+      <article class="card">
+        <div class="ic">📋</div>
+        <h3>בדיקות חשמליות ואישור</h3>
+      </article>
+      <article class="card">
+        <div class="ic">🔌</div>
+        <h3>חיבור חשמלי ועידכון</h3>
+      </article>
+      <article class="card">
+        <div class="ic">💧</div>
+        <h3>החלפת חום מים וחלפת אלמנטים</h3>
+      </article>
+      <article class="card">
+        <div class="ic">🔌</div>
+        <h3>התקנת חשמל והחלפת חיבורים</h3>
+      </article>
+      <article class="card">
+        <div class="ic">💡</div>
+        <h3>התקנת מתקני חשמל</h3>
+      </article>
+      <article class="card">
+        <div class="ic">🔘</div>
+        <h3>החלפת מתקני חשמל</h3>
+      </article>
+      <article class="card">
+        <div class="ic">🔘</div>
+        <h3>החלפת מתקני חשמל</h3>
+      </article>
+      <article class="card">
+        <div class="ic">⏰</div>
+        <h3>התקנת שעון סבתא ועוד</h3>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO / WORK GALLERY -->
+<section class="portfolio">
+  <div class="section__inner">
+    <h2 class="section__title">עבודותי האחרונות</h2>
+    <p class="portfolio__subtitle">פרויקטים חשמליים מוסמכים בהדרה, נתניה וכל הארץ</p>
+
+    <div class="carousel" (keydown)="onCarouselKeydown($event)" tabindex="0">
+      <button
+        class="carousel__btn carousel__btn--prev"
+        (click)="previousSlide()"
+        aria-label="Previous image"
+      >
+        ‹
+      </button>
+
+      <div class="carousel__track-container">
+        <div class="carousel__track" [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
+          <div class="carousel__slide" *ngFor="let image of workImages; let i = index">
+            <img [src]="image.src" [alt]="image.alt" class="carousel__image" />
+            <div class="carousel__caption">{{ image.caption }}</div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="carousel__btn carousel__btn--next"
+        (click)="nextSlide()"
+        aria-label="Next image"
+      >
+        ›
+      </button>
+
+      <div class="carousel__indicators">
+        <button
+          *ngFor="let image of workImages; let i = index"
+          class="carousel__indicator"
+          [class.carousel__indicator--active]="i === currentSlide"
+          (click)="goToSlide(i)"
+          [attr.aria-label]="'Go to image ' + (i + 1)"
+        ></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY / TESTIMONIALS -->
+<section class="why">
+  <div class="section__inner">
+    <h2 class="section__title">למה לבחור אותי?</h2>
+    <div class="quotes">
+      <blockquote>
+        "הגיע בשעה ופתר קשר מסובך. חשמלאי מוסמך.."
+        <footer>עמרי חדרה</footer>
+      </blockquote>
+      <blockquote>
+        "שירות מצוין, מאובטח ומאוד טוב"
+        <footer>נועה נתניה</footer>
+      </blockquote>
+      <blockquote>
+        "שירות מצוין, מאובטח ומאוד טוב"
+        <footer>עמרי חדרה</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section__inner contact__grid">
+    <div class="contact__left">
+      <h2>צור קשר עכשיו</h2>
+      <div class="phone">054-4818383</div>
+      <button class="btn btn--yellow">שליחה</button>
+      <meta itemprop="url" content="https://repairman.co.il/electrician" />
+      <meta itemprop="areaServed" content="Hadera, Netanya, Israel" />
+    </div>
+
+    <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submit()">
+      <div class="row">
+        <input placeholder="שם" formControlName="name" />
+        <input placeholder="מספר טלפון" formControlName="phone" />
+      </div>
+      <textarea rows="5" placeholder="הודעה" formControlName="message"></textarea>
+
+      <div class="actions">
+        <button class="btn btn--yellow" type="submit" [disabled]="sending()">
+          {{ sending() ? 'שולח…' : 'שליחה' }}
+        </button>
+        <span class="sent" *ngIf="sent()">✓ הודעה נשלחה!</span>
+        <span class="error" *ngIf="error()">❌ {{ error() }}הודעה לא נשלחה!</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- SOCIAL MEDIA SECTION -->
+<section class="social-section">
+  <div class="social-section__inner">
+    <h2 class="social-section__title">צור קשר עכשיו</h2>
+    <p class="social-section__subtitle">צור קשר עכשיו באמצעות פייסבוק, וואטסאפ או בדרך הטלפון</p>
+
+    <div class="social-icons">
+      <a
+        href="https://wa.me/972544818383"
+        target="_blank"
+        rel="noopener"
+        class="social-icon social-icon--whatsapp"
+        aria-label="WhatsApp"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+          />
+        </svg>
+        <span>WhatsApp</span>
+      </a>
+
+      <a href="tel:+972544818383" class="social-icon social-icon--phone" aria-label="Phone">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"
+          />
+        </svg>
+        <span>054-481-8383</span>
+      </a>
+
+      <a
+        href="mailto:joe@repairman.co.il"
+        class="social-icon social-icon--email"
+        aria-label="Email"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+          />
+        </svg>
+        <span>שלח מייל</span>
+      </a>
+
+      <a
+        href="https://facebook.com"
+        target="_blank"
+        rel="noopener"
+        class="social-icon social-icon--facebook"
+        aria-label="Facebook"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+          />
+        </svg>
+        <span>Facebook</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__row">
+    <div class="brand">© {{ year }} Repairman.co.il</div>
+  </div>
+  <div class="footer__credit">
+    <p>
+      האתר נבנה על ידי
+      <a
+        href="https://yuval1984.github.io/profile/"
+        target="_blank"
+        rel="noopener"
+        class="credit-link"
+        >Yuval Kogan</a
+      >
+    </p>
+  </div>
+</footer>

@@ -6,23 +6,66 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
+// Middleware to parse JSON bodies
+app.use(express.json());
+
 /**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
+ * Email API endpoint
  */
+app.post('/api/send-email', async (req, res) => {
+  try {
+    const { name, phone, message } = req.body;
+
+    // Configure your email transport
+    // For production, use your actual SMTP credentials
+    const transporter = nodemailer.createTransport({
+      host: process.env['SMTP_HOST'] || 'smtp.gmail.com',
+      port: parseInt(process.env['SMTP_PORT'] || '587'),
+      secure: false,
+      auth: {
+        user: process.env['EMAIL_USER'] || 'your-email@gmail.com',
+        pass: process.env['EMAIL_PASS'] || 'your-app-password',
+      },
+    });
+
+    // Email content
+    const mailOptions = {
+      from: process.env['EMAIL_USER'] || 'your-email@gmail.com',
+      to: 'yuvalkogan84@gmail.com', // Recipient email
+      subject: `New Contact Form Message from ${name}`,
+      text: `
+Name: ${name}
+Phone: ${phone}
+Message: ${message}
+      `,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Message:</strong> ${message}</p>
+      `,
+    };
+
+    // Send email
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ success: true, message: 'Email sent successfully' });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ success: false, message: 'Failed to send email' });
+  }
+});
 
 /**
  * Serve static files from /browser
