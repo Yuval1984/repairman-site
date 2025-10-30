@@ -23,20 +23,34 @@ export class ElectricianPage implements OnInit, OnDestroy {
   sent = signal(false);
   error = signal<string | null>(null);
   currentSlide = 0;
+  showDialog = signal(false);
+  activeServiceDesc = signal<string>('');
 
   // Placeholder images - replace with actual work photos
   workImages = [
-    { src: '/assets/electrician/work/project-1.jpg', alt: 'Electrical panel installation', caption: 'Professional Electrical Panel Installation' },
-    { src: '/assets/electrician/work/project-2.jpg', alt: 'Three-phase connection work', caption: 'Three-Phase Connection Upgrade' },
-    { src: '/assets/electrician/work/project-3.jpg', alt: 'Lighting installation', caption: 'Modern Lighting Fixtures Installation' },
-    { src: '/assets/electrician/work/project-4.jpg', alt: 'Outlet installation', caption: 'Electrical Outlets & Switches' },
-    { src: '/assets/electrician/work/project-5.jpg', alt: 'Electrical testing', caption: 'Electrical Testing & Certification' },
-    { src: '/assets/electrician/work/project-6.jpg', alt: 'Water heater repair', caption: 'Water Heater Elements Replacement' }
+    { src: '/assets/electrician/work/electrician_work_2.jpg', alt: 'Electrical panel installation', caption: 'Professional Electrical Panel Installation' },
+    { src: '/assets/electrician/work/electrician_work_1.jpg', alt: 'Three-phase connection work', caption: 'Three-Phase Connection Upgrade' },
+    { src: '/assets/electrician/work/electrician_work_3.jpg', alt: 'Lighting installation', caption: 'Modern Lighting Fixtures Installation' },
+  ];
+
+  // Testimonials quotes for marquee (duplicated in the template for seamless loop)
+  quotes: string[] = [
+    '"הגיע במהירות, פתר תקלה מסובכת בצורה מקצועית והשאיר הכול נקי ומסודר." — דניאל · תל אביב',
+    '"שירות מעולה! הסביר הכול בסבלנות ועשה עבודה ברמה גבוהה מאוד." — אורית · חיפה',
+    '"חשמלאי אמין ואדיב, מצא את התקלה מהר ותיקן בלי לנסות למכור שטויות." — גלעד · ראשון לציון',
+    '"הגיע בשעה שנקבעה, עבד נקי ומדויק. בהחלט שומר את המספר לפעם הבאה!" — הילה · נתניה',
+    '"תוך חצי שעה הכול חזר לעבוד! מקצוען אמיתי עם גישה שירותית נדירה." — רוני · הרצליה',
+    '"פתר בעיה שהחשמלאי הקודם לא הצליח למצוא. מומלץ בחום!" — ליאור · פ"ת',
+    '"החליף לוח חשמל בצורה מסודרת, המחיר הוגן והשירות מעולה." — מיטל · כפר סבא',
+    '"בא בדיוק בזמן, עבד מהר והשאיר תחושת ביטחון. שירות 10/10." — אביב · גבעתיים',
+    '"חשמלאי מדויק, אמין ונעים. כל התהליך היה פשוט מושלם." — יעל · חיפה',
+    '"תיקן קצר בלילה תוך רבע שעה! זמינות מדהימה ואכפתיות אמיתית." — עידן · רחובות',
   ];
 
   contactForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
-    phone: ['', [Validators.required, Validators.pattern(/^[0-9+\-\s]{6,}$/)]],
+    // Allow spaces and dashes during input, but validate final format in submit
+    phone: ['', [Validators.required, Validators.pattern(/^0[\d\s-]{9,}$/)]],
     message: ['', [Validators.required, Validators.minLength(5)]],
   });
 
@@ -44,6 +58,20 @@ export class ElectricianPage implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  // Dialog controls
+  openDialog() {
+    this.showDialog.set(true);
+  }
+
+  closeDialog() {
+    this.showDialog.set(false);
+  }
+
+  // Services hover panel
+  setServiceDescription(desc: string) {
+    this.activeServiceDesc.set(desc);
   }
 
   // Carousel navigation methods
@@ -68,6 +96,10 @@ export class ElectricianPage implements OnInit, OnDestroy {
     }
   }
 
+  trackByIndex(index: number): number {
+    return index;
+  }
+
   submit() {
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
@@ -77,7 +109,25 @@ export class ElectricianPage implements OnInit, OnDestroy {
     this.sending.set(true);
     this.error.set(null);
 
-    const formData = this.contactForm.value;
+    // Normalize phone number (remove spaces, dashes, etc.) for validation
+    const phoneValue = this.contactForm.get('phone')?.value || '';
+    const normalizedPhone = phoneValue.replace(/\s|-/g, '');
+
+    // Validate phone format before sending
+    const phoneRegex = /^0\d{9}$/;
+    if (!phoneRegex.test(normalizedPhone)) {
+      this.sending.set(false);
+      this.error.set('מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10 ספרות');
+      this.contactForm.get('phone')?.setErrors({ pattern: true });
+      this.contactForm.get('phone')?.markAsTouched();
+      setTimeout(() => this.error.set(null), 5000);
+      return;
+    }
+
+    const formData = {
+      ...this.contactForm.value,
+      phone: normalizedPhone
+    };
 
     this.http.post('/api/send-email', formData).subscribe({
       next: (response: any) => {
@@ -88,7 +138,9 @@ export class ElectricianPage implements OnInit, OnDestroy {
       },
       error: (err) => {
         this.sending.set(false);
-        this.error.set('הודעה לא נשלחה. נסה להתקשר או לשלח הדעה.');
+        // Show server error message if available, otherwise show default message
+        const errorMessage = err.error?.message || 'הודעה לא נשלחה. נסה להתקשר או לשלח הודעה.';
+        this.error.set(errorMessage);
         console.error('Email error:', err);
         setTimeout(() => this.error.set(null), 5000);
       }

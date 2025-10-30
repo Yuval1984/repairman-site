@@ -5,20 +5,22 @@
     <img src="/assets/electrician.jpg" alt="Licensed electrician holding tools" />
   </div>
 
-  <!-- Text column -->
-  <div class="hero__copy">
-    <h1 class="hero__title"><span class="strong">'טכנו גו</span><br />חשמלאי מוסמך</h1>
-    <p class="hero__lead">שירותי חשמל לביתך ולעסק</p>
+  <div class="hero__content">
+    <div class="hero__copy">
+      <h1 class="hero__title"><span class="strong">טכנו גו'</span><br />חשמלאי מוסמך</h1>
+      <p class="hero__lead">שירותי חשמל לביתך ולעסק</p>
 
-    <ul class="hero__bullets">
-      <li>רישיון #975186</li>
-      <li>שירות מהיר ומאובטח</li>
-      <li>אחריות מלאה</li>
-      <li>מחירים מסתדרים</li>
-    </ul>
-
+      <ul class="hero__bullets">
+        <li>🧯 תיקון קצרים ותקלות חשמל מיידיות</li>
+        <li>💡 התקנת תאורה לבית ולגינה</li>
+        <li>🔌 החלפת שקעים, פחתים ולוחות חשמל</li>
+        <li>🏠 הכנת תשתית חשמל לשיפוץ או בנייה חדשה</li>
+        <li>⚙️ איתור ותיקון זליגות הארקה ובדיקות בטיחות</li>
+      </ul>
+    </div>
+    <!-- Text column -->
     <div class="hero__cta">
-      <button class="btn btn--dark" (click)="scrollToContact()">הזמן ביקור</button>
+      <button class="btn btn--dark" (click)="openDialog()">הזמן ביקור</button>
       <a
         class="btn btn--yellow"
         href="tel:+972544818383"
@@ -31,47 +33,190 @@
   </div>
 </header>
 
+<!-- VISIT BOOKING DIALOG -->
+<div class="modal-backdrop" *ngIf="showDialog()" (click)="closeDialog()"></div>
+<div
+  class="modal"
+  *ngIf="showDialog()"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="visitDialogTitle"
+>
+  <div class="modal__card" (click)="$event.stopPropagation()">
+    <div class="modal__header">
+      <h3 id="visitDialogTitle">הזמן ביקור</h3>
+      <button class="modal__close" (click)="closeDialog()" aria-label="סגור">✕</button>
+    </div>
+    <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="field">
+          <input
+            placeholder="שם"
+            formControlName="name"
+            [class.invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+          />
+          <div
+            class="error-text"
+            *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors"
+          >
+            <span *ngIf="contactForm.get('name')?.errors?.['required']">יש להזין שם</span>
+            <span *ngIf="contactForm.get('name')?.errors?.['minlength']"
+              >השם חייב להכיל לפחות 2 תווים</span
+            >
+          </div>
+        </div>
+        <div class="field">
+          <input
+            placeholder="מספר טלפון"
+            formControlName="phone"
+            [class.invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched"
+          />
+          <div
+            class="error-text"
+            *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.errors"
+          >
+            <span *ngIf="contactForm.get('phone')?.errors?.['required']">יש להזין מספר טלפון</span>
+            <span *ngIf="contactForm.get('phone')?.errors?.['pattern']"
+              >מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10 ספרות</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <textarea
+          rows="5"
+          placeholder="הודעה"
+          formControlName="message"
+          [class.invalid]="
+            contactForm.get('message')?.invalid && contactForm.get('message')?.touched
+          "
+        ></textarea>
+        <div
+          class="error-text"
+          *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.errors"
+        >
+          <span *ngIf="contactForm.get('message')?.errors?.['required']">יש להזין הודעה</span>
+          <span *ngIf="contactForm.get('message')?.errors?.['minlength']"
+            >ההודעה חייבת להכיל לפחות 5 תווים</span
+          >
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn btn--yellow" type="submit" [disabled]="sending()">
+          {{ sending() ? 'שולח…' : 'שליחה' }}
+        </button>
+        <span class="sent" *ngIf="sent()">✓ הודעה נשלחה!</span>
+        <span class="error" *ngIf="error()">❌ {{ error() }}הודעה לא נשלחה!</span>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- SERVICES -->
 <section class="services">
   <div class="section__inner">
-    <h2 class="section__title">השירותים שלי</h2>
-    <div class="cards">
-      <article class="card">
-        <div class="ic">⚡</div>
-        <h3>תיקון חשמלי ואדימה</h3>
-      </article>
-      <article class="card">
-        <div class="ic">📋</div>
-        <h3>בדיקות חשמליות ואישור</h3>
-      </article>
-      <article class="card">
-        <div class="ic">🔌</div>
-        <h3>חיבור חשמלי ועידכון</h3>
-      </article>
-      <article class="card">
-        <div class="ic">💧</div>
-        <h3>החלפת חום מים וחלפת אלמנטים</h3>
-      </article>
-      <article class="card">
-        <div class="ic">🔌</div>
-        <h3>התקנת חשמל והחלפת חיבורים</h3>
-      </article>
-      <article class="card">
-        <div class="ic">💡</div>
-        <h3>התקנת מתקני חשמל</h3>
-      </article>
-      <article class="card">
-        <div class="ic">🔘</div>
-        <h3>החלפת מתקני חשמל</h3>
-      </article>
-      <article class="card">
-        <div class="ic">🔘</div>
-        <h3>החלפת מתקני חשמל</h3>
-      </article>
-      <article class="card">
-        <div class="ic">⏰</div>
-        <h3>התקנת שעון סבתא ועוד</h3>
-      </article>
+    <h2 class="section__title white_text">השירותים שלי</h2>
+    <div class="cards services__grid">
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('איתור ותיקון בעיות במערכת ההארקה למניעת התחשמלות.')"
+        (focus)="setServiceDescription('איתור ותיקון בעיות במערכת ההארקה למניעת התחשמלות.')"
+      >
+        <span class="svc__icon">⚡</span>
+        <span class="svc__title">תיקון זליגת הארקה</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="
+          setServiceDescription('חיבור והתקנת לוח חשמל ראשי או משני, כולל מפסקים אוטומטיים ופחתים.')
+        "
+        (focus)="
+          setServiceDescription('חיבור והתקנת לוח חשמל ראשי או משני, כולל מפסקים אוטומטיים ופחתים.')
+        "
+      >
+        <span class="svc__icon">🔌</span>
+        <span class="svc__title">התקנת לוחות חשמל</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="
+          setServiceDescription('איתור מקור הקצר (מכשיר, חוט, שקע) ותיקונו בצורה בטוחה.')
+        "
+        (focus)="setServiceDescription('איתור מקור הקצר (מכשיר, חוט, שקע) ותיקונו בצורה בטוחה.')"
+      >
+        <span class="svc__icon">⚠️</span>
+        <span class="svc__title">תיקון קצר חשמלי</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('החלפה או התקנה של שקעים, מפסקים, נקודות חשמל ותאורה.')"
+        (focus)="setServiceDescription('החלפה או התקנה של שקעים, מפסקים, נקודות חשמל ותאורה.')"
+      >
+        <span class="svc__icon">🔘</span>
+        <span class="svc__title">החלפת שקעים ומפסקים</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('התקנת גופי תאורה, ספוטים, תאורת גינה ותאורת חירום.')"
+        (focus)="setServiceDescription('התקנת גופי תאורה, ספוטים, תאורת גינה ותאורת חירום.')"
+      >
+        <span class="svc__icon">💡</span>
+        <span class="svc__title">התקנת תאורה פנימית וחיצונית</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('ביצוע בדיקות בטיחות למערכת החשמל בבית או בעסק.')"
+        (focus)="setServiceDescription('ביצוע בדיקות בטיחות למערכת החשמל בבית או בעסק.')"
+      >
+        <span class="svc__icon">📋</span>
+        <span class="svc__title">בדיקות תקינות והארקה</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="
+          setServiceDescription('החלפת חוטים, שדרוג עומסים, והחלפת לוחות ישנים לתקניים.')
+        "
+        (focus)="setServiceDescription('החלפת חוטים, שדרוג עומסים, והחלפת לוחות ישנים לתקניים.')"
+      >
+        <span class="svc__icon">🔧</span>
+        <span class="svc__title">שדרוג מערכת חשמל ישנה</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('חיווט ותכנון נקודות חשמל בבנייה חדשה או בשיפוץ.')"
+        (focus)="setServiceDescription('חיווט ותכנון נקודות חשמל בבנייה חדשה או בשיפוץ.')"
+      >
+        <span class="svc__icon">🏗️</span>
+        <span class="svc__title">התקנת מערכות חשמל חדשות</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="
+          setServiceDescription(
+            'חיבור תנורים, מזגנים, מדיחים או מכונות כביסה בצורה בטוחה עם הגנה מתאימה.'
+          )
+        "
+        (focus)="
+          setServiceDescription(
+            'חיבור תנורים, מזגנים, מדיחים או מכונות כביסה בצורה בטוחה עם הגנה מתאימה.'
+          )
+        "
+      >
+        <span class="svc__icon">🔩</span>
+        <span class="svc__title">חיבור מכשירים כבדים</span>
+      </button>
+    </div>
+    <div class="svc-panel" [class.svc-panel--visible]="activeServiceDesc()">
+      {{ activeServiceDesc() || 'העבר עכבר מעל שירות להצגת פירוט' }}
     </div>
   </div>
 </section>
@@ -79,65 +224,52 @@
 <!-- PORTFOLIO / WORK GALLERY -->
 <section class="portfolio">
   <div class="section__inner">
-    <h2 class="section__title">עבודותי האחרונות</h2>
-    <p class="portfolio__subtitle">פרויקטים חשמליים מוסמכים בהדרה, נתניה וכל הארץ</p>
+    <h2 class="section__title black_text">גלריית עבודות</h2>
+    <p class="portfolio__subtitle">פרויקטים חשמליים מוסמכים בחדרה, נתניה וכל הארץ</p>
 
-    <div class="carousel" (keydown)="onCarouselKeydown($event)" tabindex="0">
-      <button
-        class="carousel__btn carousel__btn--prev"
-        (click)="previousSlide()"
-        aria-label="Previous image"
-      >
-        ‹
-      </button>
-
-      <div class="carousel__track-container">
-        <div class="carousel__track" [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
-          <div class="carousel__slide" *ngFor="let image of workImages; let i = index">
-            <img [src]="image.src" [alt]="image.alt" class="carousel__image" />
-            <div class="carousel__caption">{{ image.caption }}</div>
+    <!-- Bootstrap 5 Carousel -->
+    <div id="workCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button
+          *ngFor="let image of workImages; let i = index"
+          type="button"
+          data-bs-target="#workCarousel"
+          [attr.data-bs-slide-to]="i"
+          [class.active]="i === 0"
+          [attr.aria-current]="i === 0 ? 'true' : null"
+          [attr.aria-label]="'Slide ' + (i + 1)"
+        ></button>
+      </div>
+      <div class="carousel-inner">
+        <div
+          class="carousel-item"
+          *ngFor="let image of workImages; let i = index"
+          [class.active]="i === 0"
+        >
+          <img [src]="image.src" class="d-block w-100" [alt]="image.alt" />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>{{ image.caption }}</h5>
           </div>
         </div>
       </div>
-
       <button
-        class="carousel__btn carousel__btn--next"
-        (click)="nextSlide()"
-        aria-label="Next image"
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#workCarousel"
+        data-bs-slide="prev"
       >
-        ›
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
       </button>
-
-      <div class="carousel__indicators">
-        <button
-          *ngFor="let image of workImages; let i = index"
-          class="carousel__indicator"
-          [class.carousel__indicator--active]="i === currentSlide"
-          (click)="goToSlide(i)"
-          [attr.aria-label]="'Go to image ' + (i + 1)"
-        ></button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY / TESTIMONIALS -->
-<section class="why">
-  <div class="section__inner">
-    <h2 class="section__title">למה לבחור אותי?</h2>
-    <div class="quotes">
-      <blockquote>
-        "הגיע בשעה ופתר קשר מסובך. חשמלאי מוסמך.."
-        <footer>עמרי חדרה</footer>
-      </blockquote>
-      <blockquote>
-        "שירות מצוין, מאובטח ומאוד טוב"
-        <footer>נועה נתניה</footer>
-      </blockquote>
-      <blockquote>
-        "שירות מצוין, מאובטח ומאוד טוב"
-        <footer>עמרי חדרה</footer>
-      </blockquote>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#workCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </div>
 </section>
@@ -148,17 +280,64 @@
     <div class="contact__left">
       <h2>צור קשר עכשיו</h2>
       <div class="phone">054-4818383</div>
-      <button class="btn btn--yellow">שליחה</button>
       <meta itemprop="url" content="https://repairman.co.il/electrician" />
       <meta itemprop="areaServed" content="Hadera, Netanya, Israel" />
     </div>
 
     <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submit()">
       <div class="row">
-        <input placeholder="שם" formControlName="name" />
-        <input placeholder="מספר טלפון" formControlName="phone" />
+        <div class="field">
+          <input
+            placeholder="שם"
+            formControlName="name"
+            [class.invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+          />
+          <div
+            class="error-text"
+            *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors"
+          >
+            <span *ngIf="contactForm.get('name')?.errors?.['required']">יש להזין שם</span>
+            <span *ngIf="contactForm.get('name')?.errors?.['minlength']"
+              >השם חייב להכיל לפחות 2 תווים</span
+            >
+          </div>
+        </div>
+        <div class="field">
+          <input
+            placeholder="מספר טלפון"
+            formControlName="phone"
+            [class.invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched"
+          />
+          <div
+            class="error-text"
+            *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.errors"
+          >
+            <span *ngIf="contactForm.get('phone')?.errors?.['required']">יש להזין מספר טלפון</span>
+            <span *ngIf="contactForm.get('phone')?.errors?.['pattern']"
+              >מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10 ספרות</span
+            >
+          </div>
+        </div>
       </div>
-      <textarea rows="5" placeholder="הודעה" formControlName="message"></textarea>
+      <div class="field">
+        <textarea
+          rows="5"
+          placeholder="הודעה"
+          formControlName="message"
+          [class.invalid]="
+            contactForm.get('message')?.invalid && contactForm.get('message')?.touched
+          "
+        ></textarea>
+        <div
+          class="error-text"
+          *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.errors"
+        >
+          <span *ngIf="contactForm.get('message')?.errors?.['required']">יש להזין הודעה</span>
+          <span *ngIf="contactForm.get('message')?.errors?.['minlength']"
+            >ההודעה חייבת להכיל לפחות 5 תווים</span
+          >
+        </div>
+      </div>
 
       <div class="actions">
         <button class="btn btn--yellow" type="submit" [disabled]="sending()">
@@ -171,10 +350,60 @@
   </div>
 </section>
 
+<!-- WHY / TESTIMONIALS -->
+<section class="why">
+  <div class="section__inner">
+    <h2 class="section__title black_text">למה לבחור אותי?</h2>
+    <div
+      id="quotesCarousel"
+      class="carousel slide"
+      data-bs-ride="carousel"
+      aria-label="ביקורות לקוחות"
+    >
+      <div class="carousel-indicators">
+        <button
+          *ngFor="let q of quotes; let i = index"
+          type="button"
+          data-bs-target="#quotesCarousel"
+          [attr.data-bs-slide-to]="i"
+          [class.active]="i === 0"
+          [attr.aria-current]="i === 0 ? 'true' : null"
+          [attr.aria-label]="'Slide ' + (i + 1)"
+        ></button>
+      </div>
+
+      <div class="carousel-inner quotes-carousel__inner">
+        <div class="carousel-item" *ngFor="let q of quotes; let i = index" [class.active]="i === 0">
+          <div class="quote-card quotes-carousel__card">{{ q }}</div>
+        </div>
+      </div>
+
+      <button
+        class="carousel-control-prev quotes-carousel__ctrl"
+        type="button"
+        data-bs-target="#quotesCarousel"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next quotes-carousel__ctrl"
+        type="button"
+        data-bs-target="#quotesCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- SOCIAL MEDIA SECTION -->
 <section class="social-section">
   <div class="social-section__inner">
-    <h2 class="social-section__title">צור קשר עכשיו</h2>
+    <h2 class="social-section__title white_text">צור קשר עכשיו</h2>
     <p class="social-section__subtitle">צור קשר עכשיו באמצעות פייסבוק, וואטסאפ או בדרך הטלפון</p>
 
     <div class="social-icons">
