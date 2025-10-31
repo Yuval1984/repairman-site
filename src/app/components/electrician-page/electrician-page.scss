@@ -12,6 +12,33 @@
   box-sizing: border-box;
 }
 
+.bookmark-tab {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  background: #ffffff;
+  color: #0e6fb9;
+  text-decoration: none;
+  padding: 10px 16px 14px 16px; /* extra bottom space for notch */
+  border-radius: 0 0 14px 14px;
+  font-weight: 800;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+}
+.bookmark-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #ffffff;
+}
+
 /* ======= HERO ======= */
 .hero {
   background: #f4b000;

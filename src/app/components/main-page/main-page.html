@@ -1,126 +1,33 @@
 <div class="background-image">
-  <a class="bookmark-tab" routerLink="/electrician">עמוד חשמלאי</a>
+  <a class="bookmark-tab" routerLink="/electrician">לעמוד חשמלאי מוסמך</a>
   <section class="hero">
-    <!-- <img
-    class="hero__bg"
-    src="/assets/appliance technician/background.png"
-    alt="Appliance repair background"
-  /> -->
-
-    <!-- <div class="hero__content page-container"> -->
-    <!-- <div>
-      <a class="top-cta" routerLink="/electrician">עמוד החשמלאי</a>
-    </div> -->
-    <div style="display: flex; justify-content: space-evenly">
-      <!-- <div class="hero__header">
-        <h1 class="hero__title">תיקון מוצרי חשמל</h1>
-        <p class="hero__subtitle">שירות למקררים ולמכשירי חשמל</p>
-        <p class="hero__subtitle">
-          תיקון כל סוגי מכונות הכביסה, מייבשי הכביסה ,מדיחי כלים , תנורי אפיה , מכונות כביסה ,
-          מכונות מזוג ועוד.
-        </p>
-        <a class="hero__phone" href="tel:0544818383">0544818383</a>
-      </div> -->
-
-      <!-- <div class="footer-cta">
-      <button class="btn btn--primary" (click)="navigateToElectricianPage()">עמוד חשמלאי</button>
-    </div> -->
-
-      <div
-        style="
-          direction: rtl;
-          max-width: 820px;
-          border-radius: 20px;
-          padding: 22px 26px;
-          color: #f3f6f9;
-          background: linear-gradient(306deg, #3f63b5 0%, #0f121a 100%);
-          box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45), 0 8px 20px rgba(0, 0, 0, 0.25);
-          backdrop-filter: blur(3px);
-          font-family: Heebo, sans-serif;
-          line-height: 1.8;
-        "
-      >
-        <!-- כותרת -->
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px">
-          <span style="font-size: 1.6rem; font-weight: 700">תיקון מוצרי חשמל</span>
+    <div class="hero-row">
+      <div class="intro-card">
+        <div class="intro-header">
+          <span class="intro-title">תיקון מוצרי חשמל</span>
         </div>
+        <div class="intro-divider"></div>
 
-        <!-- קו הפרדה -->
-        <div
-          style="height: 1px; background: rgba(255, 255, 255, 0.15); margin: 12px 0 16px 0"
-        ></div>
+        <div class="intro-subtitle">שירות למקררים ולמכשירי חשמל</div>
 
-        <!-- תת כותרת -->
-        <div style="font-size: 1.05rem; opacity: 0.9; margin-bottom: 10px">
-          שירות למקררים ולמכשירי חשמל
-        </div>
+        <div class="intro-list-title">מתקנים:</div>
 
-        <!-- רשימת מוצרים -->
-        <div style="font-size: 1rem; line-height: 1.9; opacity: 0.95; margin-bottom: 10px">
-          מתקנים:
-        </div>
-
-        <ul style="list-style: none; padding: 0; margin: 0 0 14px 0">
-          <li style="margin: 6px 0; position: relative; padding-right: 1.2rem">
-            <span style="position: absolute; right: 0; opacity: 0.7">•</span> מכונות כביסה
+        <ul class="intro-list">
+          <li class="intro-item"><span class="intro-bullet">•</span> מכונות כביסה</li>
+          <li class="intro-item"><span class="intro-bullet">•</span> מייבשי כביסה</li>
+          <li class="intro-item"><span class="intro-bullet">•</span> מדיחי כלים</li>
+          <li class="intro-item">
+            <span class="intro-bullet">•</span> תנורי אפייה וכיריים כולל מובנים
           </li>
-          <li style="margin: 6px 0; position: relative; padding-right: 1.2rem">
-            <span style="position: absolute; right: 0; opacity: 0.7">•</span> מייבשי כביסה
-          </li>
-          <li style="margin: 6px 0; position: relative; padding-right: 1.2rem">
-            <span style="position: absolute; right: 0; opacity: 0.7">•</span> מדיחי כלים
-          </li>
-          <li style="margin: 6px 0; position: relative; padding-right: 1.2rem">
-            <span style="position: absolute; right: 0; opacity: 0.7">•</span> תנורי אפייה וכיריים
-            כולל מובנים
-          </li>
-          <li style="margin: 6px 0; position: relative; padding-right: 1.2rem">
-            <span style="position: absolute; right: 0; opacity: 0.7">•</span> מקררים ומקפיאים
-          </li>
-          <li style="margin: 6px 0; position: relative; padding-right: 1.2rem">
-            <span style="position: absolute; right: 0; opacity: 0.7">•</span> מזגנים (עד 5 טון)
-          </li>
-          <li style="margin: 6px 0; position: relative; padding-right: 1.2rem">
-            <span style="position: absolute; right: 0; opacity: 0.7">•</span> מיקרוגלים ותנורים
-            משולבים
-          </li>
+          <li class="intro-item"><span class="intro-bullet">•</span> מקררים ומקפיאים</li>
+          <li class="intro-item"><span class="intro-bullet">•</span> מזגנים (עד 5 טון)</li>
+          <li class="intro-item"><span class="intro-bullet">•</span> מיקרוגלים ותנורים משולבים</li>
         </ul>
+        <div class="intro-divider intro-divider--spaced"></div>
 
-        <!-- קו הפרדה -->
-        <div
-          style="height: 1px; background: rgba(255, 255, 255, 0.15); margin: 14px 0 20px 0"
-        ></div>
-
-        <!-- טלפון -->
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-          "
-        >
-          <div style="font-size: 0.95rem; opacity: 0.8">לתיאום ותיקון מהיר</div>
-          <a
-            href="tel:0544818383"
-            style="
-              text-decoration: none;
-              background: linear-gradient(135deg, #2a9d8f 0%, #1e7f76 100%);
-              color: #fff;
-              padding: 10px 16px;
-              border-radius: 12px;
-              font-weight: 700;
-              letter-spacing: 0.3px;
-              box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), inset 0 -2px 0 rgba(255, 255, 255, 0.08);
-              transition: 0.25s transform ease, 0.25s box-shadow ease;
-              display: inline-block;
-            "
-            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 14px 36px rgba(0,0,0,0.45), inset 0 -2px 0 rgba(255,255,255,0.1)';"
-            onmouseout="this.style.transform='none'; this.style.boxShadow='0 10px 28px rgba(0,0,0,0.35), inset 0 -2px 0 rgba(255,255,255,0.08)';"
-          >
-            📞 054-481-8383
-          </a>
+        <div class="intro-phone-row">
+          <div class="intro-phone-note">לתיאום ותיקון מהיר</div>
+          <a href="tel:0544818383" class="intro-phone">📞 054-481-8383</a>
         </div>
       </div>
 
@@ -147,186 +54,60 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="hero__two-cols">
-      <div class="hero__left">
-        <img
-          class="mini-about__photo"
-          src="/assets/appliance technician/visit-card.jpg"
-          alt="On the job"
-        />
-      </div>
-    </div> -->
-    <!-- </div> -->
   </section>
 
-  <!-- Inline about moved into hero -->
-
-  <section style="background-color: #102a4f; padding: 20px; border-bottom: 3px solid #ffffff">
-    <section
-      style="
-        direction: rtl;
-        font-family: Heebo, sans-serif;
-        color: #333;
-        line-height: 1.8;
-        border-radius: 20px;
-        padding: 2rem;
-        max-width: 1500px;
-        margin: 2rem auto;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      "
-    >
-      <div style="display: flex; justify-content: space-between; gap: 20px">
+  <section class="about-strip">
+    <section class="about-container">
+      <div class="about-row">
         <!-- קורסים -->
-        <div
-          class="info-card"
-          style="
-            background: white;
-            padding: 1.5rem;
-            border-radius: 16px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-          "
-        >
-          <h2
-            style="
-              color: #4dc177;
-              font-size: 1.5rem;
-              margin-bottom: 0.8rem;
-              border-bottom: 2px solid #4dc177;
-              display: inline-block;
-              padding-bottom: 0.3rem;
-            "
-          >
-            🎓 קורסים והכשרות
-          </h2>
-          <ul style="list-style: none; padding: 0">
-            <li style="position: relative; padding-right: 1.2rem; margin-bottom: 0.5rem">
-              ✔ קירור ומיזוג עד 5 טון <strong>(בהצטיינות)</strong>
-            </li>
-            <li style="position: relative; padding-right: 1.2rem; margin-bottom: 0.5rem">
-              ✔ מוצרי חשמל ביתיים <strong>(בהצטיינות)</strong>
-            </li>
-            <li style="position: relative; padding-right: 1.2rem; margin-bottom: 0.5rem">
-              ✔ חשמלאי מוסמך <strong>(בהצטיינות)</strong>
-            </li>
+        <div class="info-card">
+          <h2>🎓 קורסים והכשרות</h2>
+          <ul class="list-clean">
+            <li class="list-item-rtl">✔ קירור ומיזוג עד 5 טון <strong>(בהצטיינות)</strong></li>
+            <li class="list-item-rtl">✔ מוצרי חשמל ביתיים <strong>(בהצטיינות)</strong></li>
+            <li class="list-item-rtl">✔ חשמלאי מוסמך <strong>(בהצטיינות)</strong></li>
           </ul>
         </div>
 
         <!-- תחומי התמחות -->
-        <div
-          class="info-card"
-          style="
-            background: white;
-            padding: 1.5rem;
-            border-radius: 16px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-          "
-        >
-          <h2
-            style="
-              color: #4dc177;
-              font-size: 1.5rem;
-              margin-bottom: 0.8rem;
-              border-bottom: 2px solid #4dc177;
-              display: inline-block;
-              padding-bottom: 0.3rem;
-            "
-          >
-            🔧 תחומי התמחות
-          </h2>
-
-          <h3 style="color: #333; margin-top: 1rem; font-size: 1.2rem; font-weight: bold">
-            טכנאי מוצרי חשמל ביתיים
-          </h3>
-          <p>
+        <div class="info-card">
+          <h2>🔧 תחומי התמחות</h2>
+          <h3 class="subheading">טכנאי מוצרי חשמל ביתיים</h3>
+          <p class="para">
             תיקון כל סוגי <strong>מכונות הכביסה</strong>, <strong>מייבשי כביסה</strong>,
             <strong>מדיחי כלים</strong>, <strong>תנורי אפייה</strong>.
           </p>
-          <p>
+          <p class="para">
             <strong>מומחה לחברות:</strong> LG · BEKO · WHIRLPOOL · SIEMENS · BOSCH · SAMSUNG · AEG
           </p>
-
-          <h3 style="color: #333; margin-top: 1rem; font-size: 1.2rem; font-weight: bold">
-            טכנאי מקררים
-          </h3>
-          <p>
+          <h3 class="subheading">טכנאי מקררים</h3>
+          <p class="para">
             תיקון כל סוגי <strong>המקררים והמקפיאים</strong> מכל החברות.<br />
             <strong>מומחה לחברות:</strong> BEKO · BLUMBERG · LG · TADIRAN · AMCOR · AMANA · SAMSUNG
           </p>
-          <p>
+          <p class="para">
             <strong>שירותים:</strong> מילוי גז, וואקום גז, תיקון דליפות, החלפת מדחסים, מאווררים,
             גופי חימום, תרמוסטטים, פילטרים, אייס מייקרים, כרטיסי בקרה וחיישנים.
           </p>
         </div>
 
         <!-- ניסיון ושירות -->
-        <div
-          class="info-card"
-          style="
-            background: white;
-            padding: 1.5rem;
-            border-radius: 16px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-          "
-        >
-          <h2
-            style="
-              color: #4dc177;
-              font-size: 1.5rem;
-              margin-bottom: 0.8rem;
-              border-bottom: 2px solid #4dc177;
-              display: inline-block;
-              padding-bottom: 0.3rem;
-            "
-          >
-            🧠 ניסיון ושירות
-          </h2>
-          <ul style="list-style: none; padding: 0">
-            <li style="position: relative; padding-right: 1.2rem; margin-bottom: 0.5rem">
-              ✔ מעל <strong>10 שנות ניסיון</strong> בתחום
-            </li>
-            <li style="position: relative; padding-right: 1.2rem; margin-bottom: 0.5rem">
+        <div class="info-card">
+          <h2>🧠 ניסיון ושירות</h2>
+          <ul class="list-clean">
+            <li class="list-item-rtl">✔ מעל <strong>10 שנות ניסיון</strong> בתחום</li>
+            <li class="list-item-rtl">
               ✔ שירות <strong>מהיר, אמין ומקצועי</strong> – ברמה גבוהה מאוד
             </li>
-            <li style="position: relative; padding-right: 1.2rem; margin-bottom: 0.5rem">
-              ✔ התחייבות לשירות <strong>אדיב ומחירים נוחים</strong>
-            </li>
-            <li style="position: relative; padding-right: 1.2rem; margin-bottom: 0.5rem">
-              ✔ <strong>אחריות מלאה</strong> על כל עבודה וחלפים
-            </li>
-            <li style="position: relative; padding-right: 1.2rem; margin-bottom: 0.5rem">
-              ✔ שירות ללקוחות <strong>פרטיים, מוסדות ועסקים</strong>
-            </li>
+            <li class="list-item-rtl">✔ התחייבות לשירות <strong>אדיב ומחירים נוחים</strong></li>
+            <li class="list-item-rtl">✔ <strong>אחריות מלאה</strong> על כל עבודה וחלפים</li>
+            <li class="list-item-rtl">✔ שירות ללקוחות <strong>פרטיים, מוסדות ועסקים</strong></li>
           </ul>
         </div>
       </div>
 
-      <!-- קצת עליי -->
-      <div
-        class="info-card"
-        style="
-          background: white;
-          padding: 1.5rem;
-          border-radius: 16px;
-          margin-bottom: 1.5rem;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        "
-      >
-        <h2
-          style="
-            color: #4dc177;
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-            border-bottom: 2px solid #4dc177;
-            display: inline-block;
-            padding-bottom: 0.3rem;
-          "
-        >
-          👨‍🔧 קצת עליי
-        </h2>
+      <div class="info-card">
+        <h2>👨‍🔧 קצת עליי</h2>
         <h5>
           שמי <strong>ג'ואל</strong>, טכנאי מוסמך למקררים ומוצרי חשמל ביתיים. יצאתי
           <strong>“צדיק”</strong> בתוכנית של חיים הכט בתחומים: אמינות, מחיר ומקצועיות.
@@ -344,29 +125,8 @@
         </h5>
       </div>
 
-      <!-- אזורי שירות -->
-      <div
-        class="info-card"
-        style="
-          background: white;
-          padding: 1.5rem;
-          border-radius: 16px;
-          margin-bottom: 1.5rem;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        "
-      >
-        <h2
-          style="
-            color: #4dc177;
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-            border-bottom: 2px solid #4dc177;
-            display: inline-block;
-            padding-bottom: 0.3rem;
-          "
-        >
-          📍 אזורי שירות
-        </h2>
+      <div class="info-card">
+        <h2>📍 אזורי שירות</h2>
         <h5>חריש · פרדס חנה והסביבה · כל אזור השרון ועד זכרון יעקב</h5>
       </div>
     </section>
@@ -482,64 +242,83 @@
   <section class="testimonials">
     <div class="testimonials-grid page-container" dir="rtl">
       <div class="testimonial-card">
-        <div class="testimonial-text">"מקצועי, אמין ושווה לכל כיס."</div>
+        <div class="testimonial-text">
+          "המכונה לא סחטה – ג'ואל הגיע תוך שעה וסידר במקום. תודה לך!"
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
+
       <div class="testimonial-card">
-        <div class="testimonial-text">"תיקון מהיר, פתר את הבעיה בצורה מושלמת."</div>
+        <div class="testimonial-text">
+          "המקרר הפסיק לקרר – ג'ואל עלה על התקלה ותיקן במקום. עובד מצוין עכשיו."
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
+
       <div class="testimonial-card">
-        <div class="testimonial-text">"מאוד מרוצה מהשירות."</div>
+        <div class="testimonial-text">
+          "המדיח נתקע באמצע – ג'ואל פירק, ניקה וסידר. עובד מצוין עכשיו."
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
+
       <div class="testimonial-card">
-        <div class="testimonial-text">"הגיע בזמן וסידר הכל באדיבות וביעילות."</div>
+        <div class="testimonial-text">
+          "המייבש לא חימם – החליף חלק קטן והכול חזר לרוץ. תודה רבה!"
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
+
       <div class="testimonial-card">
-        <div class="testimonial-text">"מחיר הוגן ושקיפות מלאה לאורך כל הדרך."</div>
+        <div class="testimonial-text">
+          "תנור לא חימם טוב – ג'ואל מצא את התקלה והחזיר את החום. ממליץ!"
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
+
       <div class="testimonial-card">
-        <div class="testimonial-text">"אבחון מדויק ותיקון מהיר – ממליץ בחום!"</div>
+        <div class="testimonial-text">
+          "הייתה לי דליפת גז במזגן – ג'ואל מצא את התקלה במהירות וסידר במקום. תותח!"
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
+
       <div class="testimonial-card">
-        <div class="testimonial-text">"שירות מצוין וזמינות גבוהה גם בערב."</div>
+        <div class="testimonial-text">
+          "נזילה מתחת למכונה – הגיע, פירק, החליף גומייה. עשה עבודה נקייה ומדויקת."
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
+
       <div class="testimonial-card">
-        <div class="testimonial-text">"סידר את המדיח כמו חדש. תודה!"</div>
+        <div class="testimonial-text">
+          "המקרר רעש בלי סוף – ג'ואל החליף מדחס וסידר הכול. תודה לך!"
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
+
       <div class="testimonial-card">
-        <div class="testimonial-text">"אמין, מקצועי ומסביר פנים – חוויה נהדרת."</div>
+        <div class="testimonial-text">
+          "המדיח לא סיים שטיפה – ג'ואל מצא חיישן תקול ותיקן במקום. עובד מושלם עכשיו."
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
+
       <div class="testimonial-card">
-        <div class="testimonial-text">"פתר תקלה מורכבת במהירות מפתיעה."</div>
+        <div class="testimonial-text">
+          "המייבש חרק בלי סוף – החליף רצועה ומיסבים, ועכשיו שקט לגמרי."
+        </div>
         <div class="testimonial-score">10/10</div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
   <section class="contact" id="contact-home">
-    <div
-      style="
-        text-align: center;
-        padding: 12px 0;
-        background-color: #ffffff;
-        border-top: 2px solid balck;
-        border-bottom: 2px solid balck;
-      "
-    >
-      <h2 style="font-size: 32px; font-weight: 700; font-family: system-ui">צור קשר</h2>
+    <div class="contact__title-bar">
+      <h2 class="contact__title">צור קשר</h2>
     </div>
     <div class="section__inner contact__grid page-container">
       <div class="contact__left">
-        <!-- <div class="social-icons"> -->
         <a
           href="https://wa.me/972544818383"
           target="_blank"
@@ -552,7 +331,7 @@
               d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"
             />
           </svg>
-          <span>וואטסאפ</span>
+          <!-- <span>וואטסאפ</span> -->
         </a>
         <a href="tel:+972544818383" class="social-icon social-icon--phone" aria-label="Phone">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -560,7 +339,7 @@
               d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"
             />
           </svg>
-          <span>054-4818383</span>
+          <!-- <span>טלפון</span> -->
         </a>
         <a
           href="https://facebook.com"
@@ -574,9 +353,8 @@
               d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
             />
           </svg>
-          <span>פייסבוק</span>
+          <!-- <span>פייסבוק</span> -->
         </a>
-        <!-- </div> -->
       </div>
       <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submitContact()">
         <div class="row">
@@ -634,20 +412,16 @@
     </div>
   </section>
 
-  <!-- CREDIT SECTION -->
   <section class="credit-section">
-    <div
-      class="page-container"
-      style="
-        text-align: center;
-        font-size: 20px;
-        padding: 40px;
-        background-color: #102a4f;
-        background: linear-gradient(306deg, #000000 0%, #c0629b 100%);
-      "
-    >
+    <div class="page-container credit-inner">
       דף זה נבנה על ידי
-      <a href="https://yuval1984.github.io/profile/" target="_blank" rel="noopener">יובל קוגן</a>
+      <a
+        href="https://yuval1984.github.io/profile/"
+        target="_blank"
+        rel="noopener"
+        class="credit-link"
+        >יובל קוגן</a
+      >
     </div>
   </section>
 </div>
