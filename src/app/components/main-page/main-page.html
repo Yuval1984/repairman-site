@@ -5,12 +5,9 @@
       <div class="intro-card">
         <div class="intro-header">
           <span class="intro-title">תיקון מוצרי חשמל</span>
+          <span class="intro-sub-title">יצאתי צדיק</span>
         </div>
         <div class="intro-divider"></div>
-
-        <div class="intro-subtitle">שירות למקררים ולמכשירי חשמל</div>
-
-        <div class="intro-list-title">מתקנים:</div>
 
         <ul class="intro-list">
           <li class="intro-item"><span class="intro-bullet">•</span> מכונות כביסה</li>
@@ -362,6 +359,7 @@
             <input
               placeholder="שם"
               formControlName="name"
+              class="mail-text"
               [class.invalid]="submitted && contactForm.get('name')?.invalid"
             />
             <div class="error-text" *ngIf="submitted && contactForm.get('name')?.errors">
@@ -375,6 +373,7 @@
             <input
               placeholder="מספר טלפון"
               formControlName="phone"
+              class="mail-text"
               [class.invalid]="submitted && contactForm.get('phone')?.invalid"
             />
             <div class="error-text" *ngIf="submitted && contactForm.get('phone')?.errors">
@@ -391,6 +390,7 @@
           <textarea
             rows="5"
             placeholder="הודעה"
+            class="mail-text"
             formControlName="message"
             [class.invalid]="submitted && contactForm.get('message')?.invalid"
           ></textarea>

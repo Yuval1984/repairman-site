@@ -50,8 +50,24 @@ export class MainPage implements OnInit {
     this.meta.updateTag({ property: 'og:description', content: 'שירותי חשמלאי מקצועי בישראל. מהיר, אמין ומוסמך.' });
     this.meta.updateTag({ property: 'og:url', content: 'https://repairman.co.il/' });
 
-    // Start autoplay and pause when tab hidden
-    // No JS needed for Bootstrap carousel here
+    // Remove animation after it completes to allow smooth transitions
+    // Animation duration is 1100ms + max delay ~180ms = ~1280ms, wait 1500ms to be safe
+    if (this.isBrowser) {
+      setTimeout(() => {
+        const cards = document.querySelectorAll('.info-card');
+        cards.forEach(card => {
+          const element = card as HTMLElement;
+          // Save only opacity before removing animation (transform returns to base state naturally)
+          const computedStyle = window.getComputedStyle(element);
+          const savedOpacity = computedStyle.opacity;
+          // Remove animation but keep the opacity (transform will be handled by CSS transition)
+          element.style.animation = 'none';
+          if (savedOpacity && parseFloat(savedOpacity) > 0) {
+            element.style.opacity = savedOpacity;
+          }
+        });
+      }, 1500);
+    }
   }
 
   navigateToElectricianPage() {
