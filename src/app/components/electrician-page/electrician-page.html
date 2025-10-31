@@ -1,36 +1,42 @@
 <!-- HERO -->
 <header class="hero" itemscope itemtype="https://schema.org/Electrician">
   <a class="bookmark-tab" routerLink="/">לעמוד הבית</a>
-  <!-- Photo column -->
-  <div class="hero__media">
-    <img src="/assets/electrician.jpg" alt="Licensed electrician holding tools" />
+  <div class="hero__content">
+    <!-- Text section: title and skills in column -->
+    <div class="hero__text-section">
+      <div class="hero__title-section">
+        <h1 class="hero__title"><span class="strong">טכנו גו'</span><br />חשמלאי מוסמך</h1>
+        <p class="hero__lead">שירותי חשמל לביתך ולעסק</p>
+      </div>
+
+      <div class="hero__copy">
+        <ul class="hero__bullets">
+          <li>🧯 תיקון קצרים ותקלות חשמל מיידיות</li>
+          <li>💡 התקנת תאורה לבית ולגינה</li>
+          <li>🔌 החלפת שקעים, פחתים ולוחות חשמל</li>
+          <li>🏠 הכנת תשתית חשמל לשיפוץ או בנייה חדשה</li>
+          <li>⚙️ איתור ותיקון זליגות הארקה ובדיקות בטיחות</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Photo on the left -->
+    <div class="hero__media">
+      <img src="/assets/electrician.jpg" alt="Licensed electrician holding tools" />
+    </div>
   </div>
 
-  <div class="hero__content">
-    <div class="hero__copy">
-      <h1 class="hero__title"><span class="strong">טכנו גו'</span><br />חשמלאי מוסמך</h1>
-      <p class="hero__lead">שירותי חשמל לביתך ולעסק</p>
-
-      <ul class="hero__bullets">
-        <li>🧯 תיקון קצרים ותקלות חשמל מיידיות</li>
-        <li>💡 התקנת תאורה לבית ולגינה</li>
-        <li>🔌 החלפת שקעים, פחתים ולוחות חשמל</li>
-        <li>🏠 הכנת תשתית חשמל לשיפוץ או בנייה חדשה</li>
-        <li>⚙️ איתור ותיקון זליגות הארקה ובדיקות בטיחות</li>
-      </ul>
-    </div>
-    <!-- Text column -->
-    <div class="hero__cta">
-      <button class="btn btn--dark" (click)="openDialog()">הזמן ביקור</button>
-      <a
-        class="btn btn--yellow"
-        href="tel:+972544818383"
-        itemprop="telephone"
-        content="+972544818383"
-      >
-        התקשר: 054-481-8383
-      </a>
-    </div>
+  <!-- Buttons -->
+  <div class="hero__cta">
+    <button class="btn btn--dark" (click)="openDialog()">הזמן ביקור</button>
+    <a
+      class="btn btn--yellow"
+      href="tel:+972544818383"
+      itemprop="telephone"
+      content="+972544818383"
+    >
+      התקשר: 054-481-8383
+    </a>
   </div>
 </header>
 
