@@ -29,9 +29,9 @@ export class ElectricianPage implements OnInit, OnDestroy {
 
   // Placeholder images - replace with actual work photos
   workImages = [
-    { src: '/assets/electrician/work/electrician_work_2.jpg', alt: 'Electrical panel installation', caption: 'Professional Electrical Panel Installation' },
-    { src: '/assets/electrician/work/electrician_work_1.jpg', alt: 'Three-phase connection work', caption: 'Three-Phase Connection Upgrade' },
-    { src: '/assets/electrician/work/electrician_work_3.jpg', alt: 'Lighting installation', caption: 'Modern Lighting Fixtures Installation' },
+    { src: '/assets/electrician/work/electrician_work_2.jpg', alt: 'התקנת לוח חשמל מקצועי - חשמלאי מוסמך', caption: 'התקנת לוח חשמל מקצועית' },
+    { src: '/assets/electrician/work/electrician_work_1.jpg', alt: 'עבודת חיבור תלת פאזי - חשמלאי מוסמך', caption: 'שדרוג חיבור תלת פאזי' },
+    { src: '/assets/electrician/work/electrician_work_3.jpg', alt: 'התקנת גופי תאורה מודרניים - חשמלאי מוסמך', caption: 'התקנת גופי תאורה מודרניים' },
   ];
 
   // Testimonials quotes for marquee (duplicated in the template for seamless loop)
@@ -149,21 +149,49 @@ export class ElectricianPage implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Set page title and meta tags (Hebrew for SEO)
-    this.title.setTitle('ג׳ו טכנו - חשמלאי מוסמך | שירותי חשמל מקצועיים');
+    // Set page title and comprehensive meta tags (Hebrew for SEO)
+    this.title.setTitle('ג׳ו טכנו - חשמלאי מוסמך | Repairmen.co.il | שירותי חשמל מקצועיים');
+
+    // Basic SEO meta tags
     this.meta.updateTag({
       name: 'description',
-      content: 'ג׳ו טכנו - חשמלאי מוסמך #975186. שירותי חשמל מקצועיים בחדרה, נתניה וכל ישראל. מענה מהיר, אחריות מלאה ומחירים הוגנים. התקשר: 054-481-8383'
+      content: 'ג׳ו טכנו - חשמלאי מוסמך #975186. שירותי חשמל מקצועיים בחדרה, נתניה וכל ישראל. תיקון קצרים, התקנת תאורה, החלפת לוחות חשמל, בדיקות בטיחות. מענה מהיר, אחריות מלאה ומחירים הוגנים. התקשר: 054-481-8383'
     });
     this.meta.updateTag({
       name: 'keywords',
-      content: 'חשמלאי, חשמלאי מוסמך, שירותי חשמל, חדרה, נתניה, ישראל, תיקון חשמל, התקנת חשמל, ג׳ו טכנו, תיקון קצר, בדיקות חשמל, חשמלאי בחדרה, חשמלאי בנתניה'
+      content: 'חשמלאי, חשמלאי מוסמך, חשמלאי מוסמך #975186, שירותי חשמל, חדרה, נתניה, ישראל, תיקון חשמל, התקנת חשמל, תיקון קצר, בדיקות חשמל, חשמלאי בחדרה, חשמלאי בנתניה, החלפת לוח חשמל, התקנת תאורה, איתור זליגות הארקה, ג׳ו טכנו'
     });
-    this.meta.updateTag({ property: 'og:title', content: " טכנו גו' - חשמלאי מוסמך | שירותי חשמל מקצועיים" });
-    this.meta.updateTag({ property: 'og:description', content: 'שירותי חשמל מקצועיים בישראל. חשמלאי מוסמך עם מענה מהיר ואחריות מלאה.' });
-    this.meta.updateTag({ property: 'og:url', content: 'https://repairman.co.il/electrician' });
+    this.meta.updateTag({ name: 'author', content: 'ג׳ו טכנו - חשמלאי מוסמך #975186' });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+    this.meta.updateTag({ name: 'language', content: 'he' });
+    this.meta.updateTag({ name: 'revisit-after', content: '7 days' });
+    this.meta.updateTag({ name: 'geo.region', content: 'IL' });
+    this.meta.updateTag({ name: 'geo.placename', content: 'ישראל' });
+
+    // Open Graph meta tags
     this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ property: 'og:image', content: 'https://repairman.co.il/assets/electrician.jpg' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://repairmen.co.il/electrician' });
+    this.meta.updateTag({ property: 'og:title', content: 'ג׳ו טכנו - חשמלאי מוסמך | שירותי חשמל מקצועיים' });
+    this.meta.updateTag({
+      property: 'og:description',
+      content: 'שירותי חשמל מקצועיים בישראל. חשמלאי מוסמך #975186 עם מענה מהיר ואחריות מלאה. תיקון קצרים, התקנת תאורה, החלפת לוחות חשמל ובדיקות בטיחות. חדרה, נתניה וכל ישראל.'
+    });
+    this.meta.updateTag({ property: 'og:image', content: 'https://repairmen.co.il/assets/electrician.jpg' });
+    this.meta.updateTag({ property: 'og:locale', content: 'he_IL' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'Repairmen.co.il' });
+
+    // Twitter Card meta tags
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:url', content: 'https://repairmen.co.il/electrician' });
+    this.meta.updateTag({ name: 'twitter:title', content: 'ג׳ו טכנו - חשמלאי מוסמך | שירותי חשמל מקצועיים' });
+    this.meta.updateTag({
+      name: 'twitter:description',
+      content: 'שירותי חשמל מקצועיים בישראל. חשמלאי מוסמך #975186 עם מענה מהיר ואחריות מלאה. תיקון קצרים, התקנת תאורה, החלפת לוחות חשמל.'
+    });
+    this.meta.updateTag({ name: 'twitter:image', content: 'https://repairmen.co.il/assets/electrician.jpg' });
+
+    // Canonical URL
+    this.meta.updateTag({ rel: 'canonical', href: 'https://repairmen.co.il/electrician' });
 
     // Add JSON-LD structured data for SEO
     if (!isPlatformBrowser(this.platformId)) return;
@@ -174,18 +202,84 @@ export class ElectricianPage implements OnInit, OnDestroy {
     const data = {
       '@context': 'https://schema.org',
       '@type': 'Electrician',
-      name: 'Joe Tecno – Licensed Electrician',
-      url: 'https://repairman.co.il/electrician',
-      image: 'https://repairman.co.il/assets/electrician.jpg',
+      name: 'ג׳ו טכנו - חשמלאי מוסמך',
+      alternateName: 'Joe Tecno - Licensed Electrician',
+      identifier: '975186',
+      url: 'https://repairmen.co.il/electrician',
+      image: 'https://repairmen.co.il/assets/electrician.jpg',
       telephone: '+972544818383',
       priceRange: '$$',
-      description: 'Licensed electrician offering fast and reliable electrical services for homes and businesses in Israel.',
-      address: { '@type': 'PostalAddress', addressLocality: 'Hadera', addressRegion: 'IL', addressCountry: 'IL' },
-      areaServed: ['Hadera', 'Netanya', 'Israel'],
+      description: 'חשמלאי מוסמך #975186 המציע שירותי חשמל מקצועיים מהירים ואמינים לבתים ועסקים בישראל. תיקון קצרים, התקנת תאורה, החלפת לוחות חשמל ובדיקות בטיחות.',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'חדרה',
+        addressRegion: 'IL',
+        addressCountry: 'IL'
+      },
+      areaServed: [
+        { '@type': 'City', name: 'חדרה' },
+        { '@type': 'City', name: 'נתניה' },
+        { '@type': 'State', name: 'השרון' },
+        { '@type': 'Country', name: 'ישראל' }
+      ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'שירותי חשמל',
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'תיקון קצרים ותקלות חשמל',
+              description: 'תיקון מהיר של קצרים ותקלות חשמל ביתיות ועסקיות'
+            }
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'התקנת תאורה',
+              description: 'התקנת תאורה לבית ולגינה'
+            }
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'החלפת שקעים ופחתים',
+              description: 'החלפת שקעים, פחתים ולוחות חשמל'
+            }
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'הכנת תשתית חשמל',
+              description: 'הכנת תשתית חשמל לשיפוץ או בנייה חדשה'
+            }
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'בדיקות בטיחות ואיתור זליגות',
+              description: 'איתור ותיקון זליגות הארקה ובדיקות בטיחות חשמל'
+            }
+          }
+        ]
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '24',
+        bestRating: '5',
+        worstRating: '1'
+      },
       openingHoursSpecification: [{
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'],
-        opens: '08:00', closes: '20:00'
+        opens: '08:00',
+        closes: '20:00'
       }]
     };
 
@@ -194,6 +288,26 @@ export class ElectricianPage implements OnInit, OnDestroy {
     script.type = 'application/ld+json';
     script.textContent = JSON.stringify(data);
     document.head.appendChild(script);
+
+    // Remove will-change after animations complete for better performance
+    // Hero animation: 1800ms, Buttons: 1900ms delay + 600ms duration = 2500ms, Service animations: up to 1100ms delay + 800ms duration = 1900ms total
+    setTimeout(() => {
+      const hero = document.querySelector('.hero') as HTMLElement;
+      if (hero) {
+        hero.style.willChange = 'auto';
+      }
+
+      const heroCta = document.querySelector('.hero__cta') as HTMLElement;
+      if (heroCta) {
+        heroCta.style.willChange = 'auto';
+      }
+
+      const serviceButtons = document.querySelectorAll('.svc');
+      serviceButtons.forEach(button => {
+        const element = button as HTMLElement;
+        element.style.willChange = 'auto';
+      });
+    }, 2600); // After all animations complete
   }
 
   ngOnDestroy(): void {

@@ -4,18 +4,18 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   
-  <!-- Home Page -->
+  <!-- Home Page - תיקון מוצרי חשמל -->
   <url>
-    <loc>https://repairman.co.il/</loc>
-    <lastmod>2025-10-23</lastmod>
+    <loc>https://repairmen.co.il/</loc>
+    <lastmod>2025-11-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
-  <!-- Electrician Services Page -->
+  <!-- Electrician Services Page - חשמלאי מוסמך -->
   <url>
-    <loc>https://repairman.co.il/electrician</loc>
-    <lastmod>2025-10-23</lastmod>
+    <loc>https://repairmen.co.il/electrician</loc>
+    <lastmod>2025-11-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

@@ -1,6 +1,8 @@
+<!-- Bookmark Tab - Fixed at top -->
+<a class="bookmark-tab" routerLink="/">לעמוד הבית</a>
+
 <!-- HERO -->
 <header class="hero" itemscope itemtype="https://schema.org/Electrician">
-  <a class="bookmark-tab" routerLink="/">לעמוד הבית</a>
   <div class="hero__content">
     <!-- Text section: title and skills in column -->
     <div class="hero__text-section">
@@ -22,7 +24,13 @@
 
     <!-- Photo on the left -->
     <div class="hero__media">
-      <img src="/assets/electrician.jpg" alt="Licensed electrician holding tools" />
+      <img
+        src="/assets/electrician.jpg"
+        alt="ג'ו טכנו - חשמלאי מוסמך #975186 עם כלי עבודה"
+        loading="eager"
+        width="400"
+        height="400"
+      />
     </div>
   </div>
 
@@ -253,7 +261,12 @@
           *ngFor="let image of workImages; let i = index"
           [class.active]="i === 0"
         >
-          <img [src]="image.src" class="d-block w-100" [alt]="image.alt" />
+          <img
+            [src]="image.src"
+            class="d-block w-100"
+            [alt]="image.alt"
+            [loading]="i === 0 ? 'eager' : 'lazy'"
+          />
           <div class="carousel-caption d-none d-md-block">
             <h5>{{ image.caption }}</h5>
           </div>
@@ -287,8 +300,8 @@
     <div class="contact__left">
       <h2>צור קשר עכשיו</h2>
       <div class="phone">054-4818383</div>
-      <meta itemprop="url" content="https://repairman.co.il/electrician" />
-      <meta itemprop="areaServed" content="Hadera, Netanya, Israel" />
+      <meta itemprop="url" content="https://repairmen.co.il/electrician" />
+      <meta itemprop="areaServed" content="חדרה, נתניה, ישראל" />
     </div>
 
     <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submit()">
@@ -417,7 +430,7 @@
       <a
         href="https://wa.me/972544818383"
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
         class="social-icon social-icon--whatsapp"
         aria-label="WhatsApp"
       >
@@ -454,7 +467,7 @@
       <a
         href="https://facebook.com"
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
         class="social-icon social-icon--facebook"
         aria-label="Facebook"
       >
@@ -480,7 +493,7 @@
       <a
         href="https://yuval1984.github.io/profile/"
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
         class="credit-link"
         >Yuval Kogan</a
       >

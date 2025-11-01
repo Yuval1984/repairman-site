@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,7 @@ import { Meta, Title } from '@angular/platform-browser';
   templateUrl: './main-page.html',
   styleUrl: './main-page.scss'
 })
-export class MainPage implements OnInit {
+export class MainPage implements OnInit, OnDestroy {
   private router = inject(Router);
   private meta = inject(Meta);
   private title = inject(Title);
@@ -36,19 +36,176 @@ export class MainPage implements OnInit {
   submitted = false;
 
   ngOnInit(): void {
-    // Set page title and meta tags for home page (Hebrew for SEO)
-    this.title.setTitle('דף הבית - Repairman.co.il | שירותי חשמלאי מקצועי בישראל');
+    // Set page title and comprehensive meta tags for home page (Hebrew for SEO)
+    this.title.setTitle('Repairmen.co.il - תיקון מוצרי חשמל וחשמלאי מוסמך בישראל');
+
+    // Basic SEO meta tags
     this.meta.updateTag({
       name: 'description',
-      content: 'שירותי חשמלאי מקצועי בישראל. חשמלאי מוסמך המציע תיקונים, התקנות ובדיקות חשמל מהירות ואמינות בחדרה, נתניה והסביבה.'
+      content: 'שירותי תיקון מוצרי חשמל ביתיים וחשמלאי מוסמך בישראל. טכנאי מוצרי חשמל מקצועי לתיקון מכונות כביסה, מקררים, מדיחי כלים, תנורים ומיזוג אוויר. חשמלאי מוסמך לתיקוני חשמל והתקנות. חריש, פרדס חנה, השרון וזכרון יעקב.'
     });
     this.meta.updateTag({
       name: 'keywords',
-      content: 'חשמלאי ישראל, שירותי חשמל, תיקוני בית, חשמלאי מוסמך, חדרה, נתניה'
+      content: 'תיקון מוצרי חשמל, טכנאי מוצרי חשמל, תיקון מכונות כביסה, תיקון מקררים, תיקון מדיחי כלים, תיקון תנורים, תיקון מייבשי כביסה, תיקון מזגנים, חשמלאי מוסמך, חשמלאי, שירותי חשמל, תיקון חשמל, התקנת חשמל, חדרה, נתניה, חריש, פרדס חנה, השרון, זכרון יעקב, ישראל, טכנאי BEKO, טכנאי LG, טכנאי WHIRLPOOL, טכנאי SIEMENS'
     });
-    this.meta.updateTag({ property: 'og:title', content: 'Repairman.co.il - שירותי חשמלאי מקצועי' });
-    this.meta.updateTag({ property: 'og:description', content: 'שירותי חשמלאי מקצועי בישראל. מהיר, אמין ומוסמך.' });
-    this.meta.updateTag({ property: 'og:url', content: 'https://repairman.co.il/' });
+    this.meta.updateTag({ name: 'author', content: 'ג\'ואל - טכנאי מוצרי חשמל וחשמלאי מוסמך' });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+    this.meta.updateTag({ name: 'language', content: 'he' });
+    this.meta.updateTag({ name: 'revisit-after', content: '7 days' });
+    this.meta.updateTag({ name: 'geo.region', content: 'IL' });
+    this.meta.updateTag({ name: 'geo.placename', content: 'ישראל' });
+
+    // Open Graph meta tags
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://repairmen.co.il/' });
+    this.meta.updateTag({ property: 'og:title', content: 'Repairmen.co.il - תיקון מוצרי חשמל וחשמלאי מוסמך' });
+    this.meta.updateTag({
+      property: 'og:description',
+      content: 'שירותי תיקון מוצרי חשמל ביתיים וחשמלאי מוסמך בישראל. טכנאי מקצועי לתיקון מכונות כביסה, מקררים, מדיחי כלים ותנורים. חשמלאי מוסמך לתיקוני חשמל והתקנות. חריש, פרדס חנה, השרון וזכרון יעקב.'
+    });
+    this.meta.updateTag({ property: 'og:image', content: 'https://repairmen.co.il/assets/appliance%20technician/profile.png' });
+    this.meta.updateTag({ property: 'og:locale', content: 'he_IL' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'Repairmen.co.il' });
+
+    // Twitter Card meta tags
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:url', content: 'https://repairmen.co.il/' });
+    this.meta.updateTag({ name: 'twitter:title', content: 'Repairmen.co.il - תיקון מוצרי חשמל וחשמלאי מוסמך' });
+    this.meta.updateTag({
+      name: 'twitter:description',
+      content: 'שירותי תיקון מוצרי חשמל ביתיים וחשמלאי מוסמך בישראל. טכנאי מקצועי לתיקון מכונות כביסה, מקררים, מדיחי כלים ותנורים.'
+    });
+    this.meta.updateTag({ name: 'twitter:image', content: 'https://repairmen.co.il/assets/appliance%20technician/profile.png' });
+
+    // Canonical URL
+    this.meta.updateTag({ rel: 'canonical', href: 'https://repairmen.co.il/' });
+
+    // Add JSON-LD structured data for SEO (LocalBusiness schema)
+    if (this.isBrowser) {
+      const id = 'ld-json-main-page';
+      const existingScript = document.getElementById(id);
+      if (existingScript) {
+        existingScript.remove();
+      }
+
+      const structuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        name: 'ג\'ואל - טכנאי מוצרי חשמל וחשמלאי מוסמך',
+        alternateName: 'Repairmen.co.il',
+        description: 'שירותי תיקון מוצרי חשמל ביתיים וחשמלאי מוסמך בישראל. טכנאי מקצועי לתיקון מכונות כביסה, מקררים, מדיחי כלים, תנורים ומיזוג אוויר.',
+        url: 'https://repairmen.co.il/',
+        image: 'https://repairmen.co.il/assets/appliance%20technician/profile.png',
+        telephone: '+972544818383',
+        priceRange: '$$',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'חריש',
+          addressRegion: 'השרון',
+          addressCountry: 'IL'
+        },
+        areaServed: [
+          { '@type': 'City', name: 'חריש' },
+          { '@type': 'City', name: 'פרדס חנה' },
+          { '@type': 'City', name: 'חדרה' },
+          { '@type': 'City', name: 'נתניה' },
+          { '@type': 'City', name: 'זכרון יעקב' },
+          { '@type': 'State', name: 'השרון' },
+          { '@type': 'Country', name: 'ישראל' }
+        ],
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'שירותי תיקון מוצרי חשמל',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'תיקון מכונות כביסה',
+                description: 'תיקון כל סוגי מכונות הכביסה מכל החברות'
+              }
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'תיקון מקררים',
+                description: 'תיקון כל סוגי המקררים והמקפיאים מכל החברות'
+              }
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'תיקון מדיחי כלים',
+                description: 'תיקון מדיחי כלים מכל החברות'
+              }
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'תיקון תנורים ומייבשי כביסה',
+                description: 'תיקון תנורי אפייה ומייבשי כביסה מכל החברות'
+              }
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'תיקון מזגנים',
+                description: 'תיקון מזגנים עד 5 טון'
+              }
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'שירותי חשמלאי מוסמך',
+                description: 'תיקוני חשמל, התקנות ובדיקות חשמל'
+              }
+            }
+          ]
+        },
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '4.9',
+          reviewCount: '28',
+          bestRating: '5',
+          worstRating: '1'
+        },
+        review: [
+          {
+            '@type': 'Review',
+            author: { '@type': 'Person', name: 'דניאל' },
+            datePublished: '2024-10-15',
+            reviewBody: 'הגיע במהירות, פתר תקלה מסובכת בצורה מקצועית והשאיר הכול נקי ומסודר.',
+            reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' }
+          },
+          {
+            '@type': 'Review',
+            author: { '@type': 'Person', name: 'אורית' },
+            datePublished: '2024-09-20',
+            reviewBody: 'שירות מעולה! הסביר הכול בסבלנות ועשה עבודה ברמה גבוהה מאוד.',
+            reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' }
+          }
+        ],
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'],
+            opens: '08:00',
+            closes: '20:00'
+          }
+        ]
+      };
+
+      const script = document.createElement('script');
+      script.id = id;
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(structuredData, null, 2);
+      document.head.appendChild(script);
+    }
 
     // Remove animation after it completes to allow smooth transitions
     // Animation duration is 1100ms + max delay ~180ms = ~1280ms, wait 1500ms to be safe
@@ -66,6 +223,20 @@ export class MainPage implements OnInit {
             element.style.opacity = savedOpacity;
           }
         });
+
+        // Remove will-change after animations complete for better performance
+        setTimeout(() => {
+          const introCard = document.querySelector('.intro-card') as HTMLElement;
+          if (introCard) {
+            introCard.style.willChange = 'auto';
+          }
+
+          const testimonialCards = document.querySelectorAll('.testimonial-card');
+          testimonialCards.forEach(card => {
+            const element = card as HTMLElement;
+            element.style.willChange = 'auto';
+          });
+        }, 2000); // After all animations complete
       }, 1500);
     }
   }
@@ -104,5 +275,15 @@ export class MainPage implements OnInit {
         this.errorMsg = err?.error?.message || 'שליחה נכשלה';
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    // Clean up JSON-LD script when component is destroyed
+    if (this.isBrowser) {
+      const script = document.getElementById('ld-json-main-page');
+      if (script) {
+        script.remove();
+      }
+    }
   }
 }

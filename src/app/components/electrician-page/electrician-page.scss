@@ -47,6 +47,20 @@
   margin: 0 auto;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: 16px;
+  opacity: 0;
+  animation: heroSlideDown 1800ms ease-out 0ms forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes heroSlideDown {
+  from {
+    transform: translate3d(0, -150px, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
 .hero__content {
@@ -104,6 +118,20 @@
   width: 100%;
   max-width: 450px;
   margin-right: auto;
+  opacity: 0;
+  animation: buttonsFadeIn 600ms ease-out 1900ms forwards;
+  will-change: opacity;
+}
+
+@keyframes buttonsFadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (min-width: 1200px) {
@@ -294,7 +322,7 @@
   padding: 20px 24px;
   border-radius: 20px;
   /* Yellow-orange on right (RTL start) to green on left (RTL end) */
-  background: linear-gradient(to left, #2753d3, #00971d);
+  background: linear-gradient(to left, #2753d3, #00bcd4);
   text-align: right;
   direction: rtl;
   cursor: pointer;
@@ -303,11 +331,55 @@
   border: 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  opacity: 0; /* Initial state - will be animated in */
+  will-change: transform, opacity;
 }
 
 .svc:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  animation-play-state: paused !important;
+}
+
+/* Train animation from the right - sequential appearance for service buttons */
+.svc:nth-child(1) {
+  animation: trainFromRight 800ms ease-out 300ms forwards;
+}
+.svc:nth-child(2) {
+  animation: trainFromRight 800ms ease-out 400ms forwards;
+}
+.svc:nth-child(3) {
+  animation: trainFromRight 800ms ease-out 500ms forwards;
+}
+.svc:nth-child(4) {
+  animation: trainFromRight 800ms ease-out 600ms forwards;
+}
+.svc:nth-child(5) {
+  animation: trainFromRight 800ms ease-out 700ms forwards;
+}
+.svc:nth-child(6) {
+  animation: trainFromRight 800ms ease-out 800ms forwards;
+}
+.svc:nth-child(7) {
+  animation: trainFromRight 800ms ease-out 900ms forwards;
+}
+.svc:nth-child(8) {
+  animation: trainFromRight 800ms ease-out 1000ms forwards;
+}
+.svc:nth-child(9) {
+  animation: trainFromRight 800ms ease-out 1100ms forwards;
+}
+
+/* Train animation keyframes - slides from right (positive X for RTL) */
+@keyframes trainFromRight {
+  from {
+    transform: translate3d(300px, 0, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
 .svc__icon {

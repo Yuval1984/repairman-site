@@ -33,18 +33,19 @@
   border-bottom: 1px solid white;
 }
 
-/* Intro card animation */
+/* Intro card animation - slide from top */
 .intro-card {
   opacity: 0;
-  animation: introSlideDown 1100ms ease-out 120ms forwards;
+  animation: introSlideDown 1100ms ease-out 0ms forwards;
+  will-change: transform, opacity;
 }
 @keyframes introSlideDown {
   from {
-    transform: translateY(-120px);
+    transform: translate3d(0, -150px, 0);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 }
@@ -416,8 +417,11 @@
   gap: 10px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
+  opacity: 0; /* Initial state - will be animated in */
+  will-change: transform, opacity;
 }
 .testimonial-card:hover {
+  animation-play-state: paused !important;
   transform: translateY(-10px) rotate(0deg) scale(1.04) !important;
   box-shadow: 0 18px 34px rgba(0, 0, 0, 0.22), 0 0 0 4px rgba(255, 221, 87, 0.65);
 }
@@ -438,36 +442,48 @@
   border-radius: 999px;
 }
 
-/* slightly "messy" aligned look */
+/* slightly "messy" aligned look with train animation from the right - sequential appearance */
 .testimonial-card:nth-child(1) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 200ms forwards;
 }
 .testimonial-card:nth-child(2) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 300ms forwards;
 }
 .testimonial-card:nth-child(3) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 400ms forwards;
 }
 .testimonial-card:nth-child(4) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 500ms forwards;
 }
 .testimonial-card:nth-child(5) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 600ms forwards;
 }
 .testimonial-card:nth-child(6) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 700ms forwards;
 }
 .testimonial-card:nth-child(7) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 800ms forwards;
 }
 .testimonial-card:nth-child(8) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 900ms forwards;
 }
 .testimonial-card:nth-child(9) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 1000ms forwards;
 }
 .testimonial-card:nth-child(10) {
-  transform: rotate(3.65deg);
+  animation: trainFromRight 800ms ease-out 1100ms forwards;
+}
+
+/* Train animation keyframes - slides from right (negative X = right side) */
+@keyframes trainFromRight {
+  from {
+    transform: translate3d(300px, 0, 0) rotate(3.65deg);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0) rotate(3.65deg);
+    opacity: 1;
+  }
 }
 
 .gallery {
@@ -684,6 +700,7 @@
   border: 3px solid #cfd8e3;
   border-radius: 8px;
   color: #000;
+  font-weight: bold;
 }
 .contact__form input.invalid,
 .contact__form textarea.invalid {
@@ -902,9 +919,11 @@
   }
   .about-row .info-card {
     flex: 1 1 48%;
+    min-width: 0; /* Allow cards to shrink below 280px */
   }
   .about-row .info-card--specialties {
     flex: 1 1 100%;
+    min-width: 0;
   }
 
   /* Testimonials: two columns */
@@ -960,6 +979,7 @@
   flex-wrap: wrap; /* keep original order, allow wrapping */
   gap: 20px;
   align-items: stretch;
+  margin-bottom: 1.5rem; /* Add gap between row and cards below */
 }
 .about-row .info-card {
   flex: 1 1 320px;
@@ -1058,6 +1078,12 @@
   .testimonial-score {
     font-size: 12px;
     padding: 2px 6px;
+  }
+
+  /* About cards: allow shrinking below 280px */
+  .about-row .info-card,
+  .about-row .info-card--specialties {
+    min-width: 0; /* Allow cards to shrink below 280px */
   }
 }
 

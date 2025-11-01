@@ -1,16 +1,46 @@
-# robots.txt for Repairman.co.il
+# robots.txt for Repairmen.co.il
 
-# Allow all search engines to index the site
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Sogou
+Allow: /
+
+User-agent: Exabot
+Allow: /
+
+User-agent: facebot
+Allow: /
+
+User-agent: ia_archiver
+Allow: /
+
+# Allow all other bots
 User-agent: *
 Allow: /
 
+# Disallow API endpoints (they don't contain indexable content)
+# Disallow: /api/
+
 # Sitemap location
-Sitemap: https://repairman.co.il/sitemap.xml
+Sitemap: https://repairmen.co.il/sitemap.xml
 
 # Crawl-delay (optional, helps prevent server overload)
 Crawl-delay: 1
-
-# Disallow specific paths if needed (currently none)
-# Disallow: /admin/
-# Disallow: /private/
 
