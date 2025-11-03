@@ -10,6 +10,7 @@
         <h1 class="hero__title"><span class="strong">טכנו גו'</span><br />חשמלאי מוסמך</h1>
         <p class="hero__lead">שירותי חשמל לביתך ולעסק</p>
       </div>
+      
 
       <div class="hero__copy">
         <ul class="hero__bullets">
@@ -36,7 +37,7 @@
 
   <!-- Buttons -->
   <div class="hero__cta">
-    <button class="btn btn--dark" (click)="openDialog()">הזמן ביקור</button>
+    <button class="btn btn--dark" (click)="scrollToContact()">הזמן ביקור</button>
     <a
       class="btn btn--yellow"
       href="tel:+972544818383"
@@ -48,84 +49,7 @@
   </div>
 </header>
 
-<!-- VISIT BOOKING DIALOG -->
-<div class="modal-backdrop" *ngIf="showDialog()" (click)="closeDialog()"></div>
-<div
-  class="modal"
-  *ngIf="showDialog()"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="visitDialogTitle"
->
-  <div class="modal__card" (click)="$event.stopPropagation()">
-    <div class="modal__header">
-      <h3 id="visitDialogTitle">הזמן ביקור</h3>
-      <button class="modal__close" (click)="closeDialog()" aria-label="סגור">✕</button>
-    </div>
-    <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submit()">
-      <div class="row">
-        <div class="field">
-          <input
-            placeholder="שם"
-            formControlName="name"
-            [class.invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
-          />
-          <div
-            class="error-text"
-            *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors"
-          >
-            <span *ngIf="contactForm.get('name')?.errors?.['required']">יש להזין שם</span>
-            <span *ngIf="contactForm.get('name')?.errors?.['minlength']"
-              >השם חייב להכיל לפחות 2 תווים</span
-            >
-          </div>
-        </div>
-        <div class="field">
-          <input
-            placeholder="מספר טלפון"
-            formControlName="phone"
-            [class.invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched"
-          />
-          <div
-            class="error-text"
-            *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.errors"
-          >
-            <span *ngIf="contactForm.get('phone')?.errors?.['required']">יש להזין מספר טלפון</span>
-            <span *ngIf="contactForm.get('phone')?.errors?.['pattern']"
-              >מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10 ספרות</span
-            >
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <textarea
-          rows="5"
-          placeholder="הודעה"
-          formControlName="message"
-          [class.invalid]="
-            contactForm.get('message')?.invalid && contactForm.get('message')?.touched
-          "
-        ></textarea>
-        <div
-          class="error-text"
-          *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.errors"
-        >
-          <span *ngIf="contactForm.get('message')?.errors?.['required']">יש להזין הודעה</span>
-          <span *ngIf="contactForm.get('message')?.errors?.['minlength']"
-            >ההודעה חייבת להכיל לפחות 5 תווים</span
-          >
-        </div>
-      </div>
-      <div class="actions">
-        <button class="btn btn--yellow" type="submit" [disabled]="sending()">
-          {{ sending() ? 'שולח…' : 'שליחה' }}
-        </button>
-        <span class="sent" *ngIf="sent()">✓ הודעה נשלחה!</span>
-        <span class="error" *ngIf="error()">❌ {{ error() }}הודעה לא נשלחה!</span>
-      </div>
-    </form>
-  </div>
-</div>
+<!-- VISIT BOOKING DIALOG removed -->
 
 <!-- SERVICES -->
 <section class="services">
@@ -304,20 +228,20 @@
       <meta itemprop="areaServed" content="חדרה, נתניה, ישראל" />
     </div>
 
-    <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submit()">
+    <form class="contact__form" [formGroup]="contactFormBottom" (ngSubmit)="submitBottom()">
       <div class="row">
         <div class="field">
           <input
             placeholder="שם"
             formControlName="name"
-            [class.invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+            [class.invalid]="contactFormBottom.get('name')?.invalid && contactFormBottom.get('name')?.touched"
           />
           <div
             class="error-text"
-            *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors"
+            *ngIf="contactFormBottom.get('name')?.touched && contactFormBottom.get('name')?.errors"
           >
-            <span *ngIf="contactForm.get('name')?.errors?.['required']">יש להזין שם</span>
-            <span *ngIf="contactForm.get('name')?.errors?.['minlength']"
+            <span *ngIf="contactFormBottom.get('name')?.errors?.['required']">יש להזין שם</span>
+            <span *ngIf="contactFormBottom.get('name')?.errors?.['minlength']"
               >השם חייב להכיל לפחות 2 תווים</span
             >
           </div>
@@ -326,16 +250,30 @@
           <input
             placeholder="מספר טלפון"
             formControlName="phone"
-            [class.invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched"
+            [class.invalid]="contactFormBottom.get('phone')?.invalid && contactFormBottom.get('phone')?.touched"
           />
           <div
             class="error-text"
-            *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.errors"
+            *ngIf="contactFormBottom.get('phone')?.touched && contactFormBottom.get('phone')?.errors"
           >
-            <span *ngIf="contactForm.get('phone')?.errors?.['required']">יש להזין מספר טלפון</span>
-            <span *ngIf="contactForm.get('phone')?.errors?.['pattern']"
+            <span *ngIf="contactFormBottom.get('phone')?.errors?.['required']">יש להזין מספר טלפון</span>
+            <span *ngIf="contactFormBottom.get('phone')?.errors?.['pattern']"
               >מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10 ספרות</span
             >
+          </div>
+        </div>
+        <div class="field">
+          <input
+            placeholder="עיר"
+            formControlName="city"
+            [class.invalid]="contactFormBottom.get('city')?.invalid && contactFormBottom.get('city')?.touched"
+          />
+          <div
+            class="error-text"
+            *ngIf="contactFormBottom.get('city')?.touched && contactFormBottom.get('city')?.errors"
+          >
+            <span *ngIf="contactFormBottom.get('city')?.errors?.['required']">יש להזין עיר</span>
+            <span *ngIf="contactFormBottom.get('city')?.errors?.['minlength']">העיר חייבת להכיל לפחות 2 תווים</span>
           </div>
         </div>
       </div>
@@ -345,26 +283,26 @@
           placeholder="הודעה"
           formControlName="message"
           [class.invalid]="
-            contactForm.get('message')?.invalid && contactForm.get('message')?.touched
+            contactFormBottom.get('message')?.invalid && contactFormBottom.get('message')?.touched
           "
         ></textarea>
         <div
           class="error-text"
-          *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.errors"
+          *ngIf="contactFormBottom.get('message')?.touched && contactFormBottom.get('message')?.errors"
         >
-          <span *ngIf="contactForm.get('message')?.errors?.['required']">יש להזין הודעה</span>
-          <span *ngIf="contactForm.get('message')?.errors?.['minlength']"
-            >ההודעה חייבת להכיל לפחות 5 תווים</span
+          <span *ngIf="contactFormBottom.get('message')?.errors?.['required']">יש להזין הודעה</span>
+          <span *ngIf="contactFormBottom.get('message')?.errors?.['minlength']"
+            >הודעה חייבת להכיל לפחות 5 תווים</span
           >
         </div>
       </div>
 
       <div class="actions">
-        <button class="btn btn--yellow" type="submit" [disabled]="sending()">
-          {{ sending() ? 'שולח…' : 'שליחה' }}
+        <button class="btn btn--yellow" type="submit" [disabled]="sendingBottom()">
+          {{ sendingBottom() ? 'שולח…' : 'שליחה' }}
         </button>
-        <span class="sent" *ngIf="sent()">✓ הודעה נשלחה!</span>
-        <span class="error" *ngIf="error()">❌ {{ error() }}הודעה לא נשלחה!</span>
+        <span class="sent" *ngIf="sentBottom()">✓ הודעה נשלחה!</span>
+        <span class="error" *ngIf="errorBottom()">❌ {{ errorBottom() }}הודעה לא נשלחה!</span>
       </div>
     </form>
   </div>
@@ -465,7 +403,7 @@
       </a>
 
       <a
-        href="https://facebook.com"
+        href="https://www.facebook.com/share/17Xv2ccgVc/"
         target="_blank"
         rel="noopener noreferrer"
         class="social-icon social-icon--facebook"

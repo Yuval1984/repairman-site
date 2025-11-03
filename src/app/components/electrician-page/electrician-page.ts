@@ -3,7 +3,8 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
+import { SendMailService } from '../../services/send-mail.service';
+import { smtpConfig } from '../../../mail-config';
 
 @Component({
   selector: 'app-electrician-page',
@@ -17,14 +18,13 @@ export class ElectricianPage implements OnInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private meta = inject(Meta);
   private title = inject(Title);
-  private http = inject(HttpClient);
+  private sendMailService = inject(SendMailService);
 
   year = new Date().getFullYear();
-  sending = signal(false);
-  sent = signal(false);
-  error = signal<string | null>(null);
+  sendingBottom = signal(false);
+  sentBottom = signal(false);
+  errorBottom = signal<string | null>(null);
   currentSlide = 0;
-  showDialog = signal(false);
   activeServiceDesc = signal<string>('');
 
   // Placeholder images - replace with actual work photos
@@ -48,10 +48,12 @@ export class ElectricianPage implements OnInit, OnDestroy {
     '"תיקן קצר בלילה תוך רבע שעה! זמינות מדהימה ואכפתיות אמיתית." - עידן · רחובות',
   ];
 
-  contactForm = this.fb.group({
+  // Bottom contact form
+  contactFormBottom = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     // Allow spaces and dashes during input, but validate final format in submit
     phone: ['', [Validators.required, Validators.pattern(/^0[\d\s-]{9,}$/)]],
+    city: ['', [Validators.required, Validators.minLength(2)]],
     message: ['', [Validators.required, Validators.minLength(5)]],
   });
 
@@ -63,11 +65,11 @@ export class ElectricianPage implements OnInit, OnDestroy {
 
   // Dialog controls
   openDialog() {
-    this.showDialog.set(true);
+    // This method is no longer needed as the top form is removed
   }
 
   closeDialog() {
-    this.showDialog.set(false);
+    // This method is no longer needed as the top form is removed
   }
 
   // Services hover panel
@@ -101,49 +103,77 @@ export class ElectricianPage implements OnInit, OnDestroy {
     return index;
   }
 
-  submit() {
-    if (this.contactForm.invalid) {
-      this.contactForm.markAllAsTouched();
+  submitBottom() {
+    if (this.contactFormBottom.invalid) {
+      this.contactFormBottom.markAllAsTouched();
       return;
     }
 
-    this.sending.set(true);
-    this.error.set(null);
+    this.sendingBottom.set(true);
+    this.errorBottom.set(null);
 
     // Normalize phone number (remove spaces, dashes, etc.) for validation
-    const phoneValue = this.contactForm.get('phone')?.value || '';
+    const phoneValue = this.contactFormBottom.get('phone')?.value || '';
     const normalizedPhone = phoneValue.replace(/\s|-/g, '');
 
     // Validate phone format before sending
     const phoneRegex = /^0\d{9}$/;
     if (!phoneRegex.test(normalizedPhone)) {
-      this.sending.set(false);
-      this.error.set('מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10 ספרות');
-      this.contactForm.get('phone')?.setErrors({ pattern: true });
-      this.contactForm.get('phone')?.markAsTouched();
-      setTimeout(() => this.error.set(null), 5000);
+      this.sendingBottom.set(false);
+      this.errorBottom.set('מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10 ספרות');
+      this.contactFormBottom.get('phone')?.setErrors({ pattern: true });
+      this.contactFormBottom.get('phone')?.markAsTouched();
+      setTimeout(() => this.errorBottom.set(null), 5000);
       return;
     }
 
-    const formData = {
-      ...this.contactForm.value,
-      phone: normalizedPhone
-    };
+    const { name, phone, city, message } = this.contactFormBottom.value as { name: string; phone: string; city: string; message: string };
 
-    this.http.post('/api/send-email', formData).subscribe({
+    // Format email content
+    const subject = `הודעה חדשה מ ${name} - חשמלאי`;
+    const html = `
+      <div style="direction: rtl; text-align: right; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333;">
+        <h1 style="font-size: 22px; color: #222; margin: 0 0 8px;">התקבלה פנייה מהאתר - חשמלאי</h1>
+        <style>
+          @media only screen and (max-width: 600px) {
+            .meta-row td { display: block !important; width: 100% !important; box-sizing: border-box; }
+          }
+        </style>
+        <table role="presentation" width="100%" style="border-collapse: collapse;">
+          <tr class="meta-row">
+            <td style="padding: 8px 0; white-space: nowrap;"><strong>שם:</strong> ${name}</td>
+            <td style="padding: 8px 0; white-space: nowrap;"><strong>טלפון:</strong> <a href="tel:${phone}" style="color: #25d366; text-decoration: none; font-weight: bold;">${phone}</a></td>
+            <td style="padding: 8px 0; white-space: nowrap;"><strong>עיר:</strong> ${city}</td>
+          </tr>
+          <tr>
+            <td colspan="3" style="padding-top: 12px;">
+              <strong>הודעה:</strong><br />
+              ${(message || '').replace(/\n/g, '<br />')}
+            </td>
+          </tr>
+        </table>
+      </div>
+    `;
+    const headerLine = `שם: ${name} | טלפון: ${phone} | עיר: ${city}`;
+    const text = `${headerLine}\r\n\r\nהודעה:\r\n${message}`;
+
+    // Send email using new payload shape (to, subject, html, from, text)
+    this.sendMailService.sendEmail('Joelkr@gmail.com', subject, html, smtpConfig.from, text).subscribe({
       next: (response: any) => {
-        this.sending.set(false);
-        this.sent.set(true);
-        this.contactForm.reset();
-        setTimeout(() => this.sent.set(false), 5000);
+        this.sendingBottom.set(false);
+        if (!response?.localOpen) {
+          this.sentBottom.set(true);
+          this.contactFormBottom.reset();
+          setTimeout(() => this.sentBottom.set(false), 5000);
+        }
       },
       error: (err) => {
-        this.sending.set(false);
+        this.sendingBottom.set(false);
         // Show server error message if available, otherwise show default message
         const errorMessage = err.error?.message || 'הודעה לא נשלחה. נסה להתקשר או לשלח הודעה.';
-        this.error.set(errorMessage);
+        this.errorBottom.set(errorMessage);
         console.error('Email error:', err);
-        setTimeout(() => this.error.set(null), 5000);
+        setTimeout(() => this.errorBottom.set(null), 5000);
       }
     });
   }

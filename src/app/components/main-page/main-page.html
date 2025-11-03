@@ -350,7 +350,7 @@
           <!-- <span>טלפון</span> -->
         </a>
         <a
-          href="https://facebook.com"
+          href="https://www.facebook.com/share/17Xv2ccgVc/"
           target="_blank"
           rel="noopener noreferrer"
           class="social-icon social-icon--facebook"
@@ -395,6 +395,18 @@
                 >מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10 ספרות</span
               >
             </div>
+          </div>
+        </div>
+        <div class="field">
+          <input
+            placeholder="עיר"
+            formControlName="city"
+            class="mail-text"
+            [class.invalid]="submitted && contactForm.get('city')?.invalid"
+          />
+          <div class="error-text" *ngIf="submitted && contactForm.get('city')?.errors">
+            <span *ngIf="contactForm.get('city')?.errors?.['required']">יש להזין עיר</span>
+            <span *ngIf="contactForm.get('city')?.errors?.['minlength']">העיר חייבת להכיל לפחות 2 תווים</span>
           </div>
         </div>
         <div class="field">

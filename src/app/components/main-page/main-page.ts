@@ -3,9 +3,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
+import { SendMailService } from '../../services/send-mail.service';
+import { smtpConfig } from '../../../mail-config';
 
 @Component({
   selector: 'app-main-page',
@@ -23,11 +24,12 @@ export class MainPage implements OnInit, OnDestroy {
   // Bootstrap carousel is used; no custom carousel state is needed
 
   private fb = inject(FormBuilder);
-  private http = inject(HttpClient);
+  private sendMailService = inject(SendMailService);
 
   contactForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     phone: ['', [Validators.required, Validators.pattern(/^0\d{9}$/)]],
+    city: ['', [Validators.required, Validators.minLength(2)]],
     message: ['', [Validators.required, Validators.minLength(5)]],
   });
   sending = false;
@@ -263,12 +265,46 @@ export class MainPage implements OnInit, OnDestroy {
       return;
     }
     this.sending = true;
-    this.http.post('/api/send-email', this.contactForm.value).subscribe({
-      next: () => {
+
+    const { name, phone, city, message } = this.contactForm.value;
+
+    // Format email content
+    const subject = `הודעה חדשה מ ${name}`;
+    const html = `
+      <div style="direction: rtl; text-align: right; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333;">
+        <h1 style="font-size: 22px; color: #222; margin: 0 0 8px;">התקבלה פנייה מהאתר</h1>
+        <style>
+          @media only screen and (max-width: 600px) {
+            .meta-row td { display: block !important; width: 100% !important; box-sizing: border-box; }
+          }
+        </style>
+        <table role="presentation" width="100%" style="border-collapse: collapse;">
+          <tr class="meta-row">
+            <td style="padding: 8px 0; white-space: nowrap;"><strong>שם:</strong> ${name}</td>
+            <td style="padding: 8px 0; white-space: nowrap;"><strong>טלפון:</strong> <a href="tel:${phone}" style="color: #25d366; text-decoration: none; font-weight: bold;">${phone}</a></td>
+            <td style="padding: 8px 0; white-space: nowrap;"><strong>עיר:</strong> ${city}</td>
+          </tr>
+          <tr>
+            <td colspan="3" style="padding-top: 12px;">
+              <strong>הודעה:</strong><br />
+              ${(message || '').replace(/\n/g, '<br />')}
+            </td>
+          </tr>
+        </table>
+      </div>
+    `;
+    const headerLine = `שם: ${name} | טלפון: ${phone} | עיר: ${city}`;
+    const text = `${headerLine}\r\n\r\nהודעה:\r\n${message}`;
+
+    // Send email using new payload shape (to, subject, html, from, text)
+    this.sendMailService.sendEmail('Joelkr@gmail.com', subject, html, smtpConfig.from, text).subscribe({
+      next: (res) => {
         this.sending = false;
-        this.sent = true;
-        this.submitted = false;
-        this.contactForm.reset();
+        if (!res?.localOpen) {
+          this.sent = true;
+          this.submitted = false;
+          this.contactForm.reset();
+        }
       },
       error: (err) => {
         this.sending = false;
