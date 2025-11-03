@@ -297,7 +297,7 @@ export class MainPage implements OnInit, OnDestroy {
     const text = `${headerLine}\r\n\r\nהודעה:\r\n${message}`;
 
     // Send email using new payload shape (to, subject, html, from, text)
-    this.sendMailService.sendEmail('Joelkr@gmail.com', subject, html, smtpConfig.from, text).subscribe({
+    this.sendMailService.sendEmail(false, 'Joelkr@gmail.com', subject, html, smtpConfig.from, text).subscribe({
       next: (res) => {
         this.sending = false;
         if (!res?.localOpen) {

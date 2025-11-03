@@ -32,10 +32,11 @@ export class SendMailService {
    * @param text Optional plain text email body
    * @returns Observable with send mail response
    */
-  sendEmail(to: string, subject: string, html: string, from: string, text?: string): Observable<SendMailResponse> {
+  sendEmail(isElectrician: boolean, to: string, subject: string, html: string, from: string, text?: string): Observable<SendMailResponse> {
     if (this.shouldSendMailLocally && typeof window !== 'undefined') {
       const fixedTo = 'Joelkr@gmail.com';
-      const localSubject = 'תיקון מכשיר ביתי - פנייה מהאתר';
+      const localSubjectMain = 'התקבלה פנייה מהאתר - תיקון מכשיר ביתי';
+      const localSubjectElectrician = 'התקבלה פנייה מהאתר - חשמלאי מוסמך';
       const normalizedText = (text && typeof text === 'string' ? text : html
         .replace(/<br\s*\/?>(\n)?/gi, '\n')
         .replace(/<\/(p|div)>/gi, '\n')
@@ -48,7 +49,7 @@ export class SendMailService {
         .split('\r\n')
         .map(line => "\u200F" + line)
         .join('\r\n');
-      const mailtoUrl = `mailto:${encodeURIComponent(fixedTo)}?subject=${encodeURIComponent(localSubject)}&body=${encodeURIComponent(body)}`;
+      const mailtoUrl = `mailto:${encodeURIComponent(fixedTo)}?subject=${encodeURIComponent(isElectrician ? localSubjectElectrician : localSubjectMain)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailtoUrl;
       return of({ success: true, message: 'Opened mail client', localOpen: true });
     }
