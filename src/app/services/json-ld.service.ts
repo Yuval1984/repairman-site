@@ -324,13 +324,13 @@ export class JsonLdService {
       openingHoursSpecification: [
         {
           '@type': 'OpeningHoursSpecification',
-          dayOfWeek: ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי'],
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'],
           opens: '08:00',
           closes: '20:00'
         },
         {
           '@type': 'OpeningHoursSpecification',
-          dayOfWeek: 'שישי',
+          dayOfWeek: 'Friday',
           opens: '08:00',
           closes: '15:00'
         }
