@@ -1,5 +1,11 @@
 <!-- Bookmark Tab - Fixed at top -->
 <a class="bookmark-tab" routerLink="/">לעמוד הבית</a>
+<div *ngIf="totalVisits !== null" class="visitors-badge" title="מספר מבקרים היום">
+  <svg class="visitors-badge__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 1 1 .001-10.001A5 5 0 0 1 12 17zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>
+  </svg>
+  <span class="visitors-badge__count">{{ totalVisits }}</span>
+  </div>
 
 <!-- HERO -->
 <header class="hero" itemscope itemtype="https://schema.org/Electrician">
@@ -7,19 +13,29 @@
     <!-- Text section: title and skills in column -->
     <div class="hero__text-section">
       <div class="hero__title-section">
-        <h1 class="hero__title"><span class="strong">טכנו גו'</span><br />חשמלאי מוסמך</h1>
-        <p class="hero__lead">שירותי חשמל לביתך ולעסק</p>
+        <h1 class="hero__title"><span class="strong">טכנו גו'</span></h1>
+        <div class="hero__license-row">
+          <h2 class="hero__subtitle">חשמלאי מוסמך<span class="hero__dash"> - </span></h2>
+          <h4 class="hero__license">רישיון מס' 975186</h4>
+        </div>
+
+        <p class="hero__lead">שירותי חשמל לבית ולעסק</p>
       </div>
       
 
       <div class="hero__copy">
         <ul class="hero__bullets">
-          <li>🧯 תיקון קצרים ותקלות חשמל מיידיות</li>
-          <li>💡 התקנת תאורה לבית ולגינה</li>
-          <li>🔌 החלפת שקעים, פחתים ולוחות חשמל</li>
-          <li>🏠 הכנת תשתית חשמל לשיפוץ או בנייה חדשה</li>
-          <li>⚙️ איתור ותיקון זליגות הארקה ובדיקות בטיחות</li>
+          <li> התקנת תאורה לבית ולגינה</li>
+          <li> החלפת שקעים, מפסקים, לוח חשמל וכל חלקי החשמל הנלווים</li>
+          <li> חיבור תלת פאזי לכיריים, והגדלת כח</li>
+          <li> החלפת גוף חימום לדוד פלאנג'</li>
+          <li> התקנת נקודות חשמל חדשות או הזזה</li>
+          <li> התקנת שעון שבת לדוד, מזגן, כולל עוד סוגי רכיבים חכמים</li>
+          <li> איתור ותיקון תקלות חשמל, קצרים, עומס, וזליגות</li>
+          <li> בדיקות חשמל והארקה, ואישורים לחברת החשמל</li>
+          <li> חשמלאי שירות מוצרי חשמל</li>
         </ul>
+        <h4 class="hero__experience">שירות מהיר מקצועי ואמין מעל 15 שנות ניסיון</h4>
       </div>
     </div>
 
@@ -59,99 +75,110 @@
       <button
         type="button"
         class="svc"
-        (mouseenter)="setServiceDescription('איתור ותיקון בעיות במערכת ההארקה למניעת התחשמלות.')"
-        (focus)="setServiceDescription('איתור ותיקון בעיות במערכת ההארקה למניעת התחשמלות.')"
+        (mouseenter)="setServiceDescription('התקנת גופי תאורה פנימית וחיצונית, תאורת גינה, ספוטים ותאורת חירום.')"
+        (focus)="setServiceDescription('התקנת גופי תאורה פנימית וחיצונית, תאורת גינה, ספוטים ותאורת חירום.')"
       >
-        <span class="svc__icon">⚡</span>
-        <span class="svc__title">תיקון זליגת הארקה</span>
+        <span class="svc__icon">💡</span>
+        <span class="svc__title">התקנת תאורה לבית ולגינה</span>
       </button>
       <button
         type="button"
         class="svc"
-        (mouseenter)="
-          setServiceDescription('חיבור והתקנת לוח חשמל ראשי או משני, כולל מפסקים אוטומטיים ופחתים.')
-        "
-        (focus)="
-          setServiceDescription('חיבור והתקנת לוח חשמל ראשי או משני, כולל מפסקים אוטומטיים ופחתים.')
-        "
+        (mouseenter)="setServiceDescription('החלפת שקעים, מפסקים, נקודות חשמל ותאורה בצורה מקצועית ובטוחה.')"
+        (focus)="setServiceDescription('החלפת שקעים, מפסקים, נקודות חשמל ותאורה בצורה מקצועית ובטוחה.')"
       >
         <span class="svc__icon">🔌</span>
-        <span class="svc__title">התקנת לוחות חשמל</span>
-      </button>
-      <button
-        type="button"
-        class="svc"
-        (mouseenter)="
-          setServiceDescription('איתור מקור הקצר (מכשיר, חוט, שקע) ותיקונו בצורה בטוחה.')
-        "
-        (focus)="setServiceDescription('איתור מקור הקצר (מכשיר, חוט, שקע) ותיקונו בצורה בטוחה.')"
-      >
-        <span class="svc__icon">⚠️</span>
-        <span class="svc__title">תיקון קצר חשמלי</span>
-      </button>
-      <button
-        type="button"
-        class="svc"
-        (mouseenter)="setServiceDescription('החלפה או התקנה של שקעים, מפסקים, נקודות חשמל ותאורה.')"
-        (focus)="setServiceDescription('החלפה או התקנה של שקעים, מפסקים, נקודות חשמל ותאורה.')"
-      >
-        <span class="svc__icon">🔘</span>
         <span class="svc__title">החלפת שקעים ומפסקים</span>
       </button>
       <button
         type="button"
         class="svc"
-        (mouseenter)="setServiceDescription('התקנת גופי תאורה, ספוטים, תאורת גינה ותאורת חירום.')"
-        (focus)="setServiceDescription('התקנת גופי תאורה, ספוטים, תאורת גינה ותאורת חירום.')"
+        (mouseenter)="setServiceDescription('שדרוג והחלפת לוח חשמל ראשי או משני, כולל מפסקים אוטומטיים ופחתים.')"
+        (focus)="setServiceDescription('שדרוג והחלפת לוח חשמל ראשי או משני, כולל מפסקים אוטומטיים ופחתים.')"
       >
-        <span class="svc__icon">💡</span>
-        <span class="svc__title">התקנת תאורה פנימית וחיצונית</span>
+        <span class="svc__icon">⚡</span>
+        <span class="svc__title">שדרוג והחלפת לוח חשמל</span>
       </button>
       <button
         type="button"
         class="svc"
-        (mouseenter)="setServiceDescription('ביצוע בדיקות בטיחות למערכת החשמל בבית או בעסק.')"
-        (focus)="setServiceDescription('ביצוע בדיקות בטיחות למערכת החשמל בבית או בעסק.')"
+        (mouseenter)="setServiceDescription('התקנת חיבור תלת־פאזי לכיריים, תנורים ומכשירים כבדים, והגדלת כוח חשמלי.')"
+        (focus)="setServiceDescription('התקנת חיבור תלת־פאזי לכיריים, תנורים ומכשירים כבדים, והגדלת כוח חשמלי.')"
       >
-        <span class="svc__icon">📋</span>
-        <span class="svc__title">בדיקות תקינות והארקה</span>
+        <span class="svc__icon">🔋</span>
+        <span class="svc__title">התקנת חיבור תלת־פאזי והגדלת כוח</span>
       </button>
       <button
         type="button"
         class="svc"
-        (mouseenter)="
-          setServiceDescription('החלפת חוטים, שדרוג עומסים, והחלפת לוחות ישנים לתקניים.')
-        "
-        (focus)="setServiceDescription('החלפת חוטים, שדרוג עומסים, והחלפת לוחות ישנים לתקניים.')"
+        (mouseenter)="setServiceDescription('החלפת גוף חימום לדוד פלאנג\', כולל בדיקה ותיקון תקלות נוספות.')"
+        (focus)="setServiceDescription('החלפת גוף חימום לדוד פלאנג\', כולל בדיקה ותיקון תקלות נוספות.')"
       >
         <span class="svc__icon">🔧</span>
-        <span class="svc__title">שדרוג מערכת חשמל ישנה</span>
+        <span class="svc__title">החלפת גוף חימום לדוד (פלאנג')</span>
       </button>
       <button
         type="button"
         class="svc"
-        (mouseenter)="setServiceDescription('חיווט ותכנון נקודות חשמל בבנייה חדשה או בשיפוץ.')"
-        (focus)="setServiceDescription('חיווט ותכנון נקודות חשמל בבנייה חדשה או בשיפוץ.')"
+        (mouseenter)="setServiceDescription('הוספת נקודות חשמל חדשות או הזזת נקודות קיימות לשיפוץ או שינוי במבנה.')"
+        (focus)="setServiceDescription('הוספת נקודות חשמל חדשות או הזזת נקודות קיימות לשיפוץ או שינוי במבנה.')"
       >
-        <span class="svc__icon">🏗️</span>
-        <span class="svc__title">התקנת מערכות חשמל חדשות</span>
+        <span class="svc__icon">📍</span>
+        <span class="svc__title">הוספת או הזזת נקודות חשמל</span>
       </button>
       <button
         type="button"
         class="svc"
-        (mouseenter)="
-          setServiceDescription(
-            'חיבור תנורים, מזגנים, מדיחים או מכונות כביסה בצורה בטוחה עם הגנה מתאימה.'
-          )
-        "
-        (focus)="
-          setServiceDescription(
-            'חיבור תנורים, מזגנים, מדיחים או מכונות כביסה בצורה בטוחה עם הגנה מתאימה.'
-          )
-        "
+        (mouseenter)="setServiceDescription('התקנת שעון שבת לדוד, מזגן, או מכשירים אחרים, כולל תכנות ושמירה על כשרות.')"
+        (focus)="setServiceDescription('התקנת שעון שבת לדוד, מזגן, או מכשירים אחרים, כולל תכנות ושמירה על כשרות.')"
       >
-        <span class="svc__icon">🔩</span>
-        <span class="svc__title">חיבור מכשירים כבדים</span>
+        <span class="svc__icon">⏰</span>
+        <span class="svc__title">התקנת שעון שבת לדוד או מזגן</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('התקנת רכיבים חכמים לבית חכם: תרמוסטטים, מפסקים חכמים, מערכות בקרה ואוטומציה.')"
+        (focus)="setServiceDescription('התקנת רכיבים חכמים לבית חכם: תרמוסטטים, מפסקים חכמים, מערכות בקרה ואוטומציה.')"
+      >
+        <span class="svc__icon">🏠</span>
+        <span class="svc__title">התקנת רכיבים חכמים לבית חכם</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('איתור ותיקון תקלות חשמל: זיהוי בעיות, אבחון מקצועי ותיקון מהיר ובטוח.')"
+        (focus)="setServiceDescription('איתור ותיקון תקלות חשמל: זיהוי בעיות, אבחון מקצועי ותיקון מהיר ובטוח.')"
+      >
+        <span class="svc__icon">🔍</span>
+        <span class="svc__title">איתור ותיקון תקלות חשמל</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('טיפול בקצרים חשמליים, עומסים יתרים וזליגות חשמל בצורה מקצועית ובטוחה.')"
+        (focus)="setServiceDescription('טיפול בקצרים חשמליים, עומסים יתרים וזליגות חשמל בצורה מקצועית ובטוחה.')"
+      >
+        <span class="svc__icon">⚠️</span>
+        <span class="svc__title">טיפול בקצרים, עומסים וזליגות חשמל</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('ביצוע בדיקות חשמל והארקה מקצועיות, כולל אישורים ותעודות תקינות.')"
+        (focus)="setServiceDescription('ביצוע בדיקות חשמל והארקה מקצועיות, כולל אישורים ותעודות תקינות.')"
+      >
+        <span class="svc__icon">📋</span>
+        <span class="svc__title">בדיקות חשמל והארקה מקצועיות</span>
+      </button>
+      <button
+        type="button"
+        class="svc"
+        (mouseenter)="setServiceDescription('שירות מקצועי למוצרי חשמל ביתיים: תיקון, תחזוקה וחיבור מכשירים חשמליים.')"
+        (focus)="setServiceDescription('שירות מקצועי למוצרי חשמל ביתיים: תיקון, תחזוקה וחיבור מכשירים חשמליים.')"
+      >
+        <span class="svc__icon">🛠️</span>
+        <span class="svc__title">חשמלאי שירות למוצרי חשמל ביתיים</span>
       </button>
     </div>
     <div class="svc-panel" [class.svc-panel--visible]="activeServiceDesc()">
@@ -314,8 +341,7 @@
     <h2 class="section__title black_text">הלקוחות מספרים</h2>
     <div
       id="quotesCarousel"
-      class="carousel slide"
-      data-bs-ride="carousel"
+      class="carousel slide carousel-fade"
       aria-label="ביקורות לקוחות"
     >
       <div class="carousel-indicators">
@@ -331,7 +357,7 @@
       </div>
 
       <div class="carousel-inner quotes-carousel__inner">
-        <div class="carousel-item" *ngFor="let q of quotes; let i = index" [class.active]="i === 0">
+        <div class="carousel-item" *ngFor="let q of quotes; let i = index" [class.active]="i === 0" (click)="nextQuoteCard()">
           <div class="quote-card quotes-carousel__card">{{ q }}</div>
         </div>
       </div>
@@ -390,9 +416,10 @@
       </a>
 
       <a
-        href="mailto:joe@repairman.co.il"
+        href="#contact"
+        (click)="scrollToContact(); $event.preventDefault()"
         class="social-icon social-icon--email"
-        aria-label="Email"
+        aria-label="Contact Form"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path

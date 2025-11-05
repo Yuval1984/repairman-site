@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { SendMailService } from '../../services/send-mail.service';
+import { VisitorsService, StartPayload } from '../../services/visitors.service';
+import { JsonLdService } from '../../services/json-ld.service';
 import { smtpConfig } from '../../../mail-config';
 
 @Component({
@@ -19,6 +21,8 @@ export class ElectricianPage implements OnInit, OnDestroy {
   private meta = inject(Meta);
   private title = inject(Title);
   private sendMailService = inject(SendMailService);
+  private visitorsService = inject(VisitorsService);
+  private jsonLdService = inject(JsonLdService);
 
   year = new Date().getFullYear();
   sendingBottom = signal(false);
@@ -26,6 +30,10 @@ export class ElectricianPage implements OnInit, OnDestroy {
   errorBottom = signal<string | null>(null);
   currentSlide = 0;
   activeServiceDesc = signal<string>('');
+  totalVisits: number | null = null;
+  private heartbeatTimer: any;
+  private visitorSessionId: string | null = null;
+  private carouselInterval: any;
 
   // Placeholder images - replace with actual work photos
   workImages = [
@@ -36,16 +44,16 @@ export class ElectricianPage implements OnInit, OnDestroy {
 
   // Testimonials quotes for marquee (duplicated in the template for seamless loop)
   quotes: string[] = [
-    '"הגיע במהירות, פתר תקלה מסובכת בצורה מקצועית והשאיר הכול נקי ומסודר." - דניאל · תל אביב',
-    '"שירות מעולה! הסביר הכול בסבלנות ועשה עבודה ברמה גבוהה מאוד." - אורית · חיפה',
-    '"חשמלאי אמין ואדיב, מצא את התקלה מהר ותיקן בלי לנסות למכור שטויות." - גלעד · ראשון לציון',
-    '"הגיע בשעה שנקבעה, עבד נקי ומדויק. בהחלט שומר את המספר לפעם הבאה!" - הילה · נתניה',
-    '"תוך חצי שעה הכול חזר לעבוד! מקצוען אמיתי עם גישה שירותית נדירה." - רוני · הרצליה',
-    '"פתר בעיה שהחשמלאי הקודם לא הצליח למצוא. מומלץ בחום!" - ליאור · פ"ת',
-    '"החליף לוח חשמל בצורה מסודרת, המחיר הוגן והשירות מעולה." - מיטל · כפר סבא',
-    '"בא בדיוק בזמן, עבד מהר והשאיר תחושת ביטחון. שירות 10/10." - אביב · גבעתיים',
-    '"חשמלאי מדויק, אמין ונעים. כל התהליך היה פשוט מושלם." - יעל · חיפה',
-    '"תיקן קצר בלילה תוך רבע שעה! זמינות מדהימה ואכפתיות אמיתית." - עידן · רחובות',
+    '"הגיע במהירות, פתר תקלה מסובכת בצורה מקצועית והשאיר הכול נקי ומסודר." - דניאל . חרב לאת  ',
+    '"שירות מעולה! הסביר הכול בסבלנות ועשה עבודה ברמה גבוהה מאוד." - אורית · בית ינאי',
+    '"חשמלאי אמין ואדיב, מצא את התקלה מהר ותיקן בלי לנסות למכור שטויות." - גלעד · פרדס חנה',
+    '"הגיע בשעה שנקבעה, עבד נקי ומדויק. בהחלט שומרת את המספר לפעם הבאה!" - הילה · חריש',
+    '"תוך חצי שעה הכול חזר לעבוד! מקצוען אמיתי עם גישה שירותית נדירה." - רוני · זכרון יעקב',
+    '"פתר בעיה שהחשמלאי הקודם לא הצליח למצוא. מומלץ בחום!" - ליאור · חדרה',
+    '"החליף לוח חשמל בצורה מסודרת, המחיר הוגן והשירות מעולה." - מיטל · גן שמואל',
+    '"בא בדיוק בזמן, עבד מהר והשאיר רושם מעולה. שירות 10/10." - איילה · עין שמר',
+    '"חשמלאי מדויק, אמין ונעים. כל התהליך היה פשוט מושלם." - יעל · גבעת חיים',
+    '"תיקן קצר בלילה תוך רבע שעה! זמינות מדהימה ואכפתיות אמיתית." - עידן · להבות חביבה',
   ];
 
   // Bottom contact form
@@ -96,6 +104,41 @@ export class ElectricianPage implements OnInit, OnDestroy {
       this.previousSlide();
     } else if (event.key === 'ArrowRight') {
       this.nextSlide();
+    }
+  }
+
+  // Flip quote card to next one
+  nextQuoteCard() {
+    if (!isPlatformBrowser(this.platformId)) return;
+    
+    const quotesCarouselEl = document.querySelector('#quotesCarousel') as HTMLElement;
+    if (!quotesCarouselEl) return;
+
+    const carousel = (window as any).bootstrap?.Carousel?.getInstance(quotesCarouselEl);
+    if (carousel) {
+      // Add flip-out animation to current active item
+      const activeItem = quotesCarouselEl.querySelector('.carousel-item.active') as HTMLElement;
+      if (activeItem) {
+        activeItem.classList.add('flipping', 'flipping-out');
+        // Move to next slide after half of the animation (when card is at 90deg)
+        setTimeout(() => {
+          carousel.next();
+          // Add flip-in animation to new active item
+          setTimeout(() => {
+            activeItem.classList.remove('flipping', 'flipping-out');
+            const newActiveItem = quotesCarouselEl.querySelector('.carousel-item.active') as HTMLElement;
+            if (newActiveItem && newActiveItem !== activeItem) {
+              newActiveItem.classList.add('flipping', 'flipping-in');
+              setTimeout(() => {
+                newActiveItem.classList.remove('flipping', 'flipping-in');
+              }, 600);
+            }
+          }, 50);
+        }, 300);
+      } else {
+        // If no active item found, just move to next
+        carousel.next();
+      }
     }
   }
 
@@ -223,101 +266,15 @@ export class ElectricianPage implements OnInit, OnDestroy {
     // Canonical URL
     this.meta.updateTag({ rel: 'canonical', href: 'https://repairmen.co.il/electrician' });
 
-    // Add JSON-LD structured data for SEO
+    // Add JSON-LD structured data for SEO using the service
     if (!isPlatformBrowser(this.platformId)) return;
 
-    const id = 'ld-json-electrician';
-    if (document.getElementById(id)) return;
+    // start visitor metrics for electrician app
+    this.initVisitorMetrics();
 
-    const data = {
-      '@context': 'https://schema.org',
-      '@type': 'Electrician',
-      name: 'ג׳ו טכנו - חשמלאי מוסמך',
-      alternateName: 'Joe Tecno - Licensed Electrician',
-      identifier: '975186',
-      url: 'https://repairmen.co.il/electrician',
-      image: 'https://repairmen.co.il/assets/electrician.jpg',
-      telephone: '+972544818383',
-      priceRange: '$$',
-      description: 'חשמלאי מוסמך #975186 המציע שירותי חשמל מקצועיים מהירים ואמינים לבתים ועסקים בישראל. תיקון קצרים, התקנת תאורה, החלפת לוחות חשמל ובדיקות בטיחות.',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'חדרה',
-        addressRegion: 'IL',
-        addressCountry: 'IL'
-      },
-      areaServed: [
-        { '@type': 'City', name: 'חדרה' },
-        { '@type': 'City', name: 'נתניה' },
-        { '@type': 'State', name: 'השרון' },
-        { '@type': 'Country', name: 'ישראל' }
-      ],
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: 'שירותי חשמל',
-        itemListElement: [
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'תיקון קצרים ותקלות חשמל',
-              description: 'תיקון מהיר של קצרים ותקלות חשמל ביתיות ועסקיות'
-            }
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'התקנת תאורה',
-              description: 'התקנת תאורה לבית ולגינה'
-            }
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'החלפת שקעים ופחתים',
-              description: 'החלפת שקעים, פחתים ולוחות חשמל'
-            }
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'הכנת תשתית חשמל',
-              description: 'הכנת תשתית חשמל לשיפוץ או בנייה חדשה'
-            }
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'בדיקות בטיחות ואיתור זליגות',
-              description: 'איתור ותיקון זליגות הארקה ובדיקות בטיחות חשמל'
-            }
-          }
-        ]
-      },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        reviewCount: '24',
-        bestRating: '5',
-        worstRating: '1'
-      },
-      openingHoursSpecification: [{
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'],
-        opens: '08:00',
-        closes: '20:00'
-      }]
-    };
-
-    const script = document.createElement('script');
-    script.id = id;
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(data);
-    document.head.appendChild(script);
+    // Inject electrician page schema
+    const schema = this.jsonLdService.getElectricianPageSchema();
+    this.jsonLdService.injectSchema('ld-json-electrician', schema);
 
     // Remove will-change after animations complete for better performance
     // Hero animation: 1800ms, Buttons: 1900ms delay + 600ms duration = 2500ms, Service animations: up to 1100ms delay + 800ms duration = 1900ms total
@@ -338,11 +295,136 @@ export class ElectricianPage implements OnInit, OnDestroy {
         element.style.willChange = 'auto';
       });
     }, 2600); // After all animations complete
+
+    // Initialize automatic carousel rotation
+    this.initCarouselAutoRotation();
+  }
+
+  private initCarouselAutoRotation() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    // Wait for Bootstrap to be available and DOM to be ready
+    setTimeout(() => {
+      const workCarouselEl = document.querySelector('#workCarousel') as HTMLElement;
+      const quotesCarouselEl = document.querySelector('#quotesCarousel') as HTMLElement;
+
+      if (!(window as any).bootstrap?.Carousel) return;
+
+      // Initialize or get existing carousel instance for work carousel
+      if (workCarouselEl) {
+        let workCarousel = (window as any).bootstrap.Carousel.getInstance(workCarouselEl);
+        if (!workCarousel) {
+          workCarousel = new (window as any).bootstrap.Carousel(workCarouselEl, {
+            interval: 5000, // 5 seconds
+            ride: 'carousel',
+            wrap: true
+          });
+        } else {
+          // Update interval if carousel already exists
+          workCarousel._config.interval = 5000;
+          workCarousel._setInterval();
+        }
+        // Store reference to prevent garbage collection
+        (workCarouselEl as any)._carousel = workCarousel;
+      }
+
+      // Initialize or get existing carousel instance for quotes carousel
+      if (quotesCarouselEl) {
+        let quotesCarousel = (window as any).bootstrap.Carousel.getInstance(quotesCarouselEl);
+        if (!quotesCarousel) {
+          quotesCarousel = new (window as any).bootstrap.Carousel(quotesCarouselEl, {
+            interval: 5000, // 5 seconds
+            ride: 'carousel',
+            wrap: true
+          });
+        } else {
+          // Update interval if carousel already exists
+          quotesCarousel._config.interval = 5000;
+          quotesCarousel._setInterval();
+        }
+        // Store reference to prevent garbage collection
+        (quotesCarouselEl as any)._carousel = quotesCarousel;
+      }
+    }, 500); // Wait for DOM to be ready
   }
 
   ngOnDestroy(): void {
     if (isPlatformBrowser(this.platformId)) {
-      document.getElementById('ld-json-electrician')?.remove();
+      if (this.heartbeatTimer) {
+        clearInterval(this.heartbeatTimer);
+        this.heartbeatTimer = null;
+      }
+      if (this.carouselInterval) {
+        clearInterval(this.carouselInterval);
+        this.carouselInterval = null;
+      }
+      // Dispose carousel instances
+      const workCarouselEl = document.querySelector('#workCarousel') as any;
+      const quotesCarouselEl = document.querySelector('#quotesCarousel') as any;
+      if (workCarouselEl?._carousel) {
+        workCarouselEl._carousel.dispose();
+      }
+      if (quotesCarouselEl?._carousel) {
+        quotesCarouselEl._carousel.dispose();
+      }
+      // Remove schema when component is destroyed
+      this.jsonLdService.removeSchema('ld-json-electrician');
+      this.endVisitorSession();
     }
   }
+
+  private initVisitorMetrics() {
+    const buildPayload = (): Promise<StartPayload> => {
+      return new Promise((resolve) => {
+        const device = {
+          userAgent: navigator.userAgent,
+          platform: (navigator as any).platform || '',
+          language: navigator.language || 'he-IL',
+          screen: { width: window.screen.width, height: window.screen.height },
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jerusalem',
+        };
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              resolve({
+                location: { lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy, source: 'gps' },
+                device,
+              });
+            },
+            () => resolve({ location: { source: 'approx' }, device }),
+            { enableHighAccuracy: false, timeout: 3000, maximumAge: 600000 }
+          );
+        } else {
+          resolve({ location: { source: 'none' }, device });
+        }
+      });
+    };
+
+    buildPayload().then((payload) => {
+      this.visitorsService.startSession(payload, 'electrician').subscribe({
+        next: (resp) => {
+          this.visitorSessionId = resp?.sessionId || null;
+          this.visitorsService.getStats('electrician').subscribe({ next: (v) => (this.totalVisits = v) });
+          if (this.visitorSessionId) {
+            this.heartbeatTimer = window.setInterval(() => {
+              if (this.visitorSessionId) {
+                this.visitorsService.heartbeat(this.visitorSessionId!, 'electrician').subscribe({ next: () => {} });
+              }
+            }, 30000);
+            window.addEventListener('beforeunload', this.endVisitorSession);
+          }
+        },
+      });
+    });
+  }
+
+  private endVisitorSession = () => {
+    if (this.visitorSessionId) {
+      const id = this.visitorSessionId;
+      this.visitorSessionId = null;
+      this.visitorsService.end(id, 'electrician').subscribe({ next: () => {} });
+      window.removeEventListener('beforeunload', this.endVisitorSession);
+    }
+  };
 }

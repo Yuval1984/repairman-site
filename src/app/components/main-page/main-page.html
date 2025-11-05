@@ -1,4 +1,10 @@
 <div class="background-image">
+  <div *ngIf="totalVisits !== null" class="visitors-badge" title="מספר מבקרים היום">
+    <svg class="visitors-badge__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 1 1 .001-10.001A5 5 0 0 1 12 17zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>
+    </svg>
+    <span class="visitors-badge__count">{{ totalVisits }}</span>
+  </div>
   <a class="bookmark-tab" routerLink="/electrician">לעמוד חשמלאי מוסמך</a>
   <section class="hero">
     <div class="hero-row">
@@ -14,11 +20,11 @@
           <li class="intro-item"><span class="intro-bullet">•</span> מייבשי כביסה</li>
           <li class="intro-item"><span class="intro-bullet">•</span> מדיחי כלים</li>
           <li class="intro-item">
-            <span class="intro-bullet">•</span> תנורי אפייה וכיריים כולל מובנים
+            <span class="intro-bullet">•</span> תנורי אפייה וכיריים
           </li>
-          <li class="intro-item"><span class="intro-bullet">•</span> מקררים ומקפיאים</li>
-          <li class="intro-item"><span class="intro-bullet">•</span> מזגנים (עד 5 טון)</li>
-          <li class="intro-item"><span class="intro-bullet">•</span> מיקרוגלים ותנורים משולבים</li>
+          <li class="intro-item"><span class="intro-bullet">•</span> מקררים ומקפיאים מכל הסוגים (כולל מסחרי)</li>
+          <li class="intro-item"><span class="intro-bullet">•</span> מזגנים כולל אינוורטר ותלת פאזי (עד 5 טון)</li>
+          <li class="intro-item"><span class="intro-bullet">•</span> מיקרוגלים ותנורי אפייה</li>
         </ul>
         <div class="intro-divider intro-divider--spaced"></div>
 
@@ -58,6 +64,11 @@
 
   <section class="about-strip">
     <section class="about-container">
+      <div class="info-card">
+        <h2>📍 אזורי שירות</h2>
+        <h5>חריש · פרדס חנה והסביבה · כל אזור השרון ועד זכרון יעקב</h5>
+      </div>
+      
       <div class="about-row">
         <!-- קורסים -->
         <div class="info-card">
@@ -95,7 +106,7 @@
         <div class="info-card">
           <h2>🧠 ניסיון ושירות</h2>
           <ul class="list-clean">
-            <li class="list-item-rtl">✔ מעל <strong>10 שנות ניסיון</strong> בתחום</li>
+            <li class="list-item-rtl">✔ מעל <strong>20 שנות ניסיון</strong> בתחום</li>
             <li class="list-item-rtl">
               ✔ שירות <strong>מהיר, אמין ומקצועי</strong> – ברמה גבוהה מאוד
             </li>
@@ -113,7 +124,7 @@
           <strong>“צדיק”</strong> בתוכנית של חיים הכט בתחומים: אמינות, מחיר ומקצועיות.
         </h5>
         <h5>
-          בעל ניסיון של למעלה מ-10 שנים בתחום השירות. בעבר עבדתי כ-12 שנה בהייטק בתפקידים: מהנדס
+          בעל ניסיון של למעלה מ-20 שנים בתחום השירות. בעבר עבדתי כ-12 שנה בהייטק בתפקידים: מהנדס
           מעבדות, אינטגרציה, אפליקציה ותמיכה טכנית.
         </h5>
         <h5>
@@ -123,12 +134,9 @@
           אני בעל יכולת טכנית גבוהה, חשיבה אנליטית ואיתור תקלות מורכבות. מתחייב לשירות מקצועי, אדיב
           ואמין – <strong>ברמה הגבוהה ביותר</strong>.
         </h5>
+        <h5>אני בעל רישיון חשמלאי מוסמך מס 975186</h5>
       </div>
 
-      <div class="info-card">
-        <h2>📍 אזורי שירות</h2>
-        <h5>חריש · פרדס חנה והסביבה · כל אזור השרון ועד זכרון יעקב</h5>
-      </div>
     </section>
   </section>
 

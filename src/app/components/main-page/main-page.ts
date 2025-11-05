@@ -6,6 +6,8 @@ import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { SendMailService } from '../../services/send-mail.service';
+import { VisitorsService, StartPayload } from '../../services/visitors.service';
+import { JsonLdService } from '../../services/json-ld.service';
 import { smtpConfig } from '../../../mail-config';
 
 @Component({
@@ -25,6 +27,8 @@ export class MainPage implements OnInit, OnDestroy {
 
   private fb = inject(FormBuilder);
   private sendMailService = inject(SendMailService);
+  private visitorsService = inject(VisitorsService);
+  private jsonLdService = inject(JsonLdService);
 
   contactForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -36,6 +40,9 @@ export class MainPage implements OnInit, OnDestroy {
   sent = false;
   errorMsg = '';
   submitted = false;
+  totalVisits: number | null = null;
+  private heartbeatTimer: any;
+  private visitorSessionId: string | null = null;
 
   ngOnInit(): void {
     // Set page title and comprehensive meta tags for home page (Hebrew for SEO)
@@ -82,131 +89,14 @@ export class MainPage implements OnInit, OnDestroy {
     // Canonical URL
     this.meta.updateTag({ rel: 'canonical', href: 'https://repairmen.co.il/' });
 
-    // Add JSON-LD structured data for SEO (LocalBusiness schema)
+    // Add JSON-LD structured data for SEO using the service
     if (this.isBrowser) {
-      const id = 'ld-json-main-page';
-      const existingScript = document.getElementById(id);
-      if (existingScript) {
-        existingScript.remove();
-      }
-
-      const structuredData = {
-        '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
-        name: 'ג\'ואל - טכנאי מוצרי חשמל וחשמלאי מוסמך',
-        alternateName: 'Repairmen.co.il',
-        description: 'שירותי תיקון מוצרי חשמל ביתיים וחשמלאי מוסמך בישראל. טכנאי מקצועי לתיקון מכונות כביסה, מקררים, מדיחי כלים, תנורים ומיזוג אוויר.',
-        url: 'https://repairmen.co.il/',
-        image: 'https://repairmen.co.il/assets/appliance%20technician/profile.png',
-        telephone: '+972544818383',
-        priceRange: '$$',
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: 'חריש',
-          addressRegion: 'השרון',
-          addressCountry: 'IL'
-        },
-        areaServed: [
-          { '@type': 'City', name: 'חריש' },
-          { '@type': 'City', name: 'פרדס חנה' },
-          { '@type': 'City', name: 'חדרה' },
-          { '@type': 'City', name: 'נתניה' },
-          { '@type': 'City', name: 'זכרון יעקב' },
-          { '@type': 'State', name: 'השרון' },
-          { '@type': 'Country', name: 'ישראל' }
-        ],
-        hasOfferCatalog: {
-          '@type': 'OfferCatalog',
-          name: 'שירותי תיקון מוצרי חשמל',
-          itemListElement: [
-            {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: 'תיקון מכונות כביסה',
-                description: 'תיקון כל סוגי מכונות הכביסה מכל החברות'
-              }
-            },
-            {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: 'תיקון מקררים',
-                description: 'תיקון כל סוגי המקררים והמקפיאים מכל החברות'
-              }
-            },
-            {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: 'תיקון מדיחי כלים',
-                description: 'תיקון מדיחי כלים מכל החברות'
-              }
-            },
-            {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: 'תיקון תנורים ומייבשי כביסה',
-                description: 'תיקון תנורי אפייה ומייבשי כביסה מכל החברות'
-              }
-            },
-            {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: 'תיקון מזגנים',
-                description: 'תיקון מזגנים עד 5 טון'
-              }
-            },
-            {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: 'שירותי חשמלאי מוסמך',
-                description: 'תיקוני חשמל, התקנות ובדיקות חשמל'
-              }
-            }
-          ]
-        },
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '4.9',
-          reviewCount: '28',
-          bestRating: '5',
-          worstRating: '1'
-        },
-        review: [
-          {
-            '@type': 'Review',
-            author: { '@type': 'Person', name: 'דניאל' },
-            datePublished: '2024-10-15',
-            reviewBody: 'הגיע במהירות, פתר תקלה מסובכת בצורה מקצועית והשאיר הכול נקי ומסודר.',
-            reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' }
-          },
-          {
-            '@type': 'Review',
-            author: { '@type': 'Person', name: 'אורית' },
-            datePublished: '2024-09-20',
-            reviewBody: 'שירות מעולה! הסביר הכול בסבלנות ועשה עבודה ברמה גבוהה מאוד.',
-            reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' }
-          }
-        ],
-        openingHoursSpecification: [
-          {
-            '@type': 'OpeningHoursSpecification',
-            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'],
-            opens: '08:00',
-            closes: '20:00'
-          }
-        ]
-      };
-
-      const script = document.createElement('script');
-      script.id = id;
-      script.type = 'application/ld+json';
-      script.textContent = JSON.stringify(structuredData, null, 2);
-      document.head.appendChild(script);
+      // Start visitor metrics collection in browser only
+      this.initVisitorMetrics();
+      
+      // Inject main page schema
+      const schema = this.jsonLdService.getMainPageSchema();
+      this.jsonLdService.injectSchema('ld-json-main-page', schema);
     }
 
     // Remove animation after it completes to allow smooth transitions
@@ -255,6 +145,68 @@ export class MainPage implements OnInit, OnDestroy {
   }
 
   // no custom carousel functions required
+
+  private initVisitorMetrics() {
+    const buildPayload = (): Promise<StartPayload> => {
+      return new Promise((resolve) => {
+        const device = {
+          userAgent: navigator.userAgent,
+          platform: (navigator as any).platform || '',
+          language: navigator.language || 'he-IL',
+          screen: { width: window.screen.width, height: window.screen.height },
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jerusalem',
+        };
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              resolve({
+                location: {
+                  lat: pos.coords.latitude,
+                  lon: pos.coords.longitude,
+                  accuracy: pos.coords.accuracy,
+                  source: 'gps',
+                },
+                device,
+              });
+            },
+            () => {
+              resolve({
+                location: { source: 'approx' },
+                device,
+              });
+            },
+            { enableHighAccuracy: false, timeout: 3000, maximumAge: 600000 }
+          );
+        } else {
+          resolve({ location: { source: 'none' }, device });
+        }
+      });
+    };
+
+    buildPayload().then((payload) => {
+      this.visitorsService.startSession(payload).subscribe({
+        next: (resp) => {
+          this.visitorSessionId = resp?.sessionId || null;
+          // fetch stats to display total visits
+          this.visitorsService.getStats().subscribe({ next: (v) => (this.totalVisits = v) });
+          // Heartbeat every ~30 seconds
+          if (this.visitorSessionId) {
+            this.heartbeatTimer = window.setInterval(() => {
+              if (this.visitorSessionId) {
+                this.visitorsService.heartbeat(this.visitorSessionId).subscribe({ next: () => {} });
+              }
+            }, 30000);
+            // End on page unload
+            window.addEventListener('beforeunload', this.endVisitorSession);
+          }
+        },
+        error: () => {
+          // fail silently; do not disturb user
+        },
+      });
+    });
+  }
 
   submitContact() {
     this.errorMsg = '';
@@ -316,10 +268,22 @@ export class MainPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Clean up JSON-LD script when component is destroyed
     if (this.isBrowser) {
-      const script = document.getElementById('ld-json-main-page');
-      if (script) {
-        script.remove();
+      if (this.heartbeatTimer) {
+        clearInterval(this.heartbeatTimer);
+        this.heartbeatTimer = null;
       }
+      // Remove schema when component is destroyed
+      this.jsonLdService.removeSchema('ld-json-main-page');
+      this.endVisitorSession();
     }
   }
+
+  private endVisitorSession = () => {
+    if (this.visitorSessionId) {
+      const id = this.visitorSessionId;
+      this.visitorSessionId = null;
+      this.visitorsService.end(id).subscribe({ next: () => {} });
+      window.removeEventListener('beforeunload', this.endVisitorSession);
+    }
+  };
 }
