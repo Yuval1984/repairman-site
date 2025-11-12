@@ -7,6 +7,7 @@ import { SendMailService } from '../../services/send-mail.service';
 import { VisitorsService, StartPayload } from '../../services/visitors.service';
 import { JsonLdService } from '../../services/json-ld.service';
 import { smtpConfig } from '../../../mail-config';
+import { trackConversion } from '../../utils/tracking';
 
 @Component({
   selector: 'app-electrician-page',
@@ -69,6 +70,10 @@ export class ElectricianPage implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  onPhoneClick() {
+    trackConversion('AW-813059440/phone_click');
   }
 
   // Dialog controls
@@ -208,13 +213,13 @@ export class ElectricianPage implements OnInit, OnDestroy {
           this.sentBottom.set(true);
           this.contactFormBottom.reset();
           setTimeout(() => this.sentBottom.set(false), 5000);
+          // Track conversion on successful form submission
+          trackConversion('AW-813059440/form_submit');
         }
       },
       error: (err) => {
         this.sendingBottom.set(false);
-        // Show server error message if available, otherwise show default message
-        const errorMessage = err.error?.message || 'הודעה לא נשלחה. נסה להתקשר או לשלח הודעה.';
-        this.errorBottom.set(errorMessage);
+        this.errorBottom.set('שגיאה בשליחת מייל שלח הודעה דרך הוואטסאפ');
         console.error('Email error:', err);
         setTimeout(() => this.errorBottom.set(null), 5000);
       }

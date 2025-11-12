@@ -66,17 +66,6 @@
   }
 }
 
-// /* Respect reduced motion */
-// @media (prefers-reduced-motion: reduce) {
-//   .info-card {
-//     transition: none !important;
-//   }
-//   .info-card:hover {
-//     transform: none !important;
-//     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
-//   }
-// }
-
 .hero__bg {
   position: absolute;
   inset: 0;
@@ -136,6 +125,15 @@
   border-top: 10px solid #ffffff; /* small pointed notch */
 }
 
+.link-image {
+  width: 40px;
+  height: 40px;
+}
+
+.rotate-90 {
+  transform: rotate(270deg);
+}
+
 /* Floating visitors counter (top-left) */
 .visitors-badge {
   position: fixed;
@@ -158,6 +156,10 @@
 }
 .visitors-badge__count {
   font-size: 14px;
+}
+
+.intro-link {
+  color: rgb(255 178 74);
 }
 
 .hero__header {
@@ -660,7 +662,10 @@
 .contact__left h2 {
   margin: 0 0 6px;
 }
-
+.links-list{
+  padding-left: 0px;
+  padding-right: 10px;
+}
 .social-icon {
   display: inline-flex;
   align-items: center;
@@ -805,6 +810,14 @@
   font-size: 1rem;
   font-weight: 500;
   margin: 8px 0;
+}
+
+.link-text-container {
+  font-size: 16px;
+}
+
+.checklist-item {
+  font-size: 16px;
 }
 
 /* Entrance animations */
@@ -1020,6 +1033,13 @@
 }
 
 /* Small-screen refinements */
+@media (max-width: 550px) {
+  .link-text-container {
+    font-size: 15px;
+  }
+}
+
+/* Small-screen refinements */
 @media (max-width: 480px) {
   .hero-row {
     flex-direction: column;
@@ -1103,11 +1123,30 @@
     font-size: 12px;
     padding: 2px 6px;
   }
+  .link-text-container {
+    font-size: 13px;
+  }
 
   /* About cards: allow shrinking below 280px */
   .about-row .info-card,
   .about-row .info-card--specialties {
     min-width: 0; /* Allow cards to shrink below 280px */
+  }
+}
+
+@media (max-width: 420px) {
+  .link-text-container {
+    font-size: 10px;
+  }
+
+  .link-image {
+    width: 30px;
+    height: 30px;
+  }
+
+  .checklist-item {
+    font-size: 9px !important;
+    padding-right: 0.5rem !important;
   }
 }
 
@@ -1117,6 +1156,10 @@
   }
   .intro-title {
     font-size: 1.2rem;
+  }
+
+  .intro-item {
+    font-size: 14px;
   }
 
   .intro-sub-title {

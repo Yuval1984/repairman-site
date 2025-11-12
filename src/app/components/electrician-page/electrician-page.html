@@ -59,6 +59,7 @@
       href="tel:+972544818383"
       itemprop="telephone"
       content="+972544818383"
+      (click)="onPhoneClick()"
     >
       התקשר: 054-481-8383
     </a>
@@ -68,7 +69,7 @@
 <!-- VISIT BOOKING DIALOG removed -->
 
 <!-- SERVICES -->
-<section class="services">
+<section class="services" aria-label="שירותי חשמלאי מוסמך">
   <div class="section__inner">
     <h2 class="section__title white_text">השירותים שלי</h2>
     <div class="cards services__grid">
@@ -188,10 +189,15 @@
 </section>
 
 <!-- PORTFOLIO / WORK GALLERY -->
-<section class="portfolio">
+<section class="portfolio" aria-label="גלריית עבודות חשמל">
   <div class="section__inner">
     <h2 class="section__title black_text">גלריית עבודות</h2>
     <p class="portfolio__subtitle">פרויקטים חשמליים מוסמכים בחדרה, נתניה וכל הארץ</p>
+    <p class="para" style="text-align: center; margin: 15px 0; max-width: 800px; margin-left: auto; margin-right: auto;">
+      חשמלאי מוסמך עם ניסיון של מעל 15 שנים בביצוע עבודות חשמל מקצועיות. 
+      התקנת תאורה, החלפת לוחות חשמל, חיבור תלת פאזי, תיקון תקלות חשמל ובדיקות בטיחות. 
+      שירות מהיר ואמין עם אחריות מלאה על כל עבודה. זמין בחדרה, נתניה, חריש, פרדס חנה וכל אזור השרון.
+    </p>
 
     <!-- Bootstrap 5 Carousel -->
     <div id="workCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -246,10 +252,14 @@
 </section>
 
 <!-- CONTACT -->
-<section class="contact" id="contact">
+<section class="contact" id="contact" aria-label="צור קשר עם חשמלאי מוסמך">
   <div class="section__inner contact__grid">
     <div class="contact__left">
       <h2>צור קשר עכשיו</h2>
+      <p class="para" style="margin: 10px 0 15px;">
+        חשמלאי מוסמך #975186 זמין לשירות מהיר בחדרה, חריש, פרדס חנה, זכרון וכל אזור השרון. 
+        התקשר עכשיו או מלא את הטופס ונחזור אליך בהקדם.
+      </p>
       <div class="phone">054-4818383</div>
       <meta itemprop="url" content="https://repairmen.co.il/electrician" />
       <meta itemprop="areaServed" content="חדרה, נתניה, ישראל" />
@@ -329,14 +339,14 @@
           {{ sendingBottom() ? 'שולח…' : 'שליחה' }}
         </button>
         <span class="sent" *ngIf="sentBottom()">✓ הודעה נשלחה!</span>
-        <span class="error" *ngIf="errorBottom()">❌ {{ errorBottom() }}הודעה לא נשלחה!</span>
+        <span class="error" *ngIf="errorBottom()">❌ {{ errorBottom() }}</span>
       </div>
     </form>
   </div>
 </section>
 
 <!-- WHY / TESTIMONIALS -->
-<section class="why">
+<section class="why" aria-label="ביקורות לקוחות חשמלאי">
   <div class="section__inner">
     <h2 class="section__title black_text">הלקוחות מספרים</h2>
     <div
@@ -385,7 +395,7 @@
 </section>
 
 <!-- SOCIAL MEDIA SECTION -->
-<section class="social-section">
+<section class="social-section" aria-label="צור קשר עם חשמלאי מוסמך">
   <div class="social-section__inner">
     <h2 class="social-section__title white_text">צור קשר עכשיו</h2>
     <p class="social-section__subtitle">צור קשר עכשיו באמצעות פייסבוק, וואטסאפ או דרך הטלפון</p>
@@ -406,7 +416,7 @@
         <span>WhatsApp</span>
       </a>
 
-      <a href="tel:+972544818383" class="social-icon social-icon--phone" aria-label="Phone">
+      <a href="tel:+972544818383" class="social-icon social-icon--phone" aria-label="Phone" (click)="onPhoneClick()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path
             d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"

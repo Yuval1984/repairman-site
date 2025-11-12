@@ -9,6 +9,7 @@ import { SendMailService } from '../../services/send-mail.service';
 import { VisitorsService, StartPayload } from '../../services/visitors.service';
 import { JsonLdService } from '../../services/json-ld.service';
 import { smtpConfig } from '../../../mail-config';
+import { trackConversion } from '../../utils/tracking';
 
 @Component({
   selector: 'app-main-page',
@@ -144,6 +145,10 @@ export class MainPage implements OnInit, OnDestroy {
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  onPhoneClick() {
+    trackConversion('AW-813059440/phone_click');
+  }
+
   // no custom carousel functions required
 
   private initVisitorMetrics() {
@@ -256,11 +261,13 @@ export class MainPage implements OnInit, OnDestroy {
           this.sent = true;
           this.submitted = false;
           this.contactForm.reset();
+          // Track conversion on successful form submission
+          trackConversion('AW-813059440/form_submit');
         }
       },
       error: (err) => {
         this.sending = false;
-        this.errorMsg = err?.error?.message || 'שליחה נכשלה';
+        this.errorMsg = 'שגיאה בשליחת מייל שלח הודעה דרך הוואטסאפ';
       },
     });
   }

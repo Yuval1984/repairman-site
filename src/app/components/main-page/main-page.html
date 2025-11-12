@@ -1,7 +1,9 @@
 <div class="background-image">
   <div *ngIf="totalVisits !== null" class="visitors-badge" title="מספר מבקרים היום">
-    <svg class="visitors-badge__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 1 1 .001-10.001A5 5 0 0 1 12 17zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z"/>
+    <svg class="visitors-badge__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+      aria-hidden="true">
+      <path
+        d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 1 1 .001-10.001A5 5 0 0 1 12 17zm0-8a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9z" />
     </svg>
     <span class="visitors-badge__count">{{ totalVisits }}</span>
   </div>
@@ -11,108 +13,134 @@
       <div class="intro-card">
         <div class="intro-header">
           <h1 class="intro-title">תיקון מוצרי חשמל</h1>
-          <span class="intro-sub-title">יצאתי צדיק</span>
+          <span class="intro-sub-title">
+            <a class="intro-link" href="https://experts.easy.co.il/%D7%98%D7%9B%D7%A0%D7%95-%D7%92%D7%95/"
+              title="ביקורת עליי בתוכנית יצאתי צדיק">יצאתי צדיק</a>
+          </span>
         </div>
         <div class="intro-divider"></div>
 
         <ul class="intro-list">
+          <li class="intro-item"><span class="intro-bullet">•</span> מקררים ומקפיאים מכל הסוגים (כולל מסחרי)</li>
           <li class="intro-item"><span class="intro-bullet">•</span> מכונות כביסה</li>
           <li class="intro-item"><span class="intro-bullet">•</span> מייבשי כביסה</li>
           <li class="intro-item"><span class="intro-bullet">•</span> מדיחי כלים</li>
           <li class="intro-item">
             <span class="intro-bullet">•</span> תנורי אפייה וכיריים
           </li>
-          <li class="intro-item"><span class="intro-bullet">•</span> מקררים ומקפיאים מכל הסוגים (כולל מסחרי)</li>
           <li class="intro-item"><span class="intro-bullet">•</span> מזגנים כולל אינוורטר ותלת פאזי (עד 5 טון)</li>
-          <li class="intro-item"><span class="intro-bullet">•</span> מיקרוגלים ותנורי אפייה</li>
+          <li class="intro-item"><span class="intro-bullet">•</span> מיקרוגלים ועוד </li>
+          <li class="intro-item"><span class="intro-bullet">•</span> <a class="intro-link" href="/electrician"
+              title="לעמוד חשמלאי מוסמך">עבודות חשמלאי מוסמך</a></li>
         </ul>
         <div class="intro-divider intro-divider--spaced"></div>
 
         <div class="intro-phone-row">
           <div class="intro-phone-note">לתיאום ותיקון מהיר</div>
-          <a href="tel:0544818383" class="intro-phone">📞 054-481-8383</a>
+          <a href="tel:0544818383" class="intro-phone" (click)="onPhoneClick()">📞 054-481-8383</a>
         </div>
       </div>
 
       <div class="hero__profile-container">
         <div class="hero__profile">
-          <img
-            class="hero__profile"
-            src="/assets/appliance technician/profile.png"
-            alt="ג'ואל - טכנאי מוצרי חשמל וחשמלאי מוסמך"
-            loading="eager"
-            width="200"
-            height="200"
-          />
+          <img class="hero__profile" src="/assets/appliance technician/profile.png"
+            alt="ג'ואל - טכנאי מוצרי חשמל וחשמלאי מוסמך" loading="eager" width="200" height="200" />
         </div>
         <div class="mini-icons">
           <img class="mini-icons__img" src="/assets/appliance technician/tzadik.jpg" alt="אמין" />
-          <img
-            class="mini-icons__img"
-            src="/assets/appliance technician/responsibility.png"
-            alt="אחריות"
-          />
-          <img
-            class="mini-icons__img"
-            src="/assets/appliance technician/price.jpg"
-            alt="מחיר הוגן"
-          />
+          <img class="mini-icons__img" src="/assets/appliance technician/responsibility.png" alt="אחריות" />
+          <img class="mini-icons__img" src="/assets/appliance technician/price.jpg" alt="מחיר הוגן" />
         </div>
       </div>
     </div>
   </section>
 
-  <section class="about-strip">
+  <section class="about-strip" aria-label="אודות טכנאי מוצרי חשמל">
     <section class="about-container">
       <div class="info-card">
         <h2>📍 אזורי שירות</h2>
         <h5>חריש · פרדס חנה והסביבה · כל אזור השרון ועד זכרון יעקב</h5>
+        <p class="para" style="margin-top: 10px;">
+          שירותי תיקון מוצרי חשמל מקצועיים זמינים בכל אזור השרון, כולל חריש, פרדס חנה, חדרה, נתניה, זכרון יעקב וכל הסביבה. 
+          טכנאי מוצרי חשמל מוסמך עם מעל 20 שנות ניסיון בתיקון מכונות כביסה, מקררים, מדיחי כלים, תנורים, מייבשי כביסה ומזגנים. 
+          שירות מהיר, אמין ומקצועי עם אחריות מלאה על כל עבודה.
+        </p>
       </div>
-      
+
       <div class="about-row">
         <!-- קורסים -->
         <div class="info-card">
           <h2>🎓 קורסים והכשרות</h2>
           <ul class="list-clean">
-            <li class="list-item-rtl">✔ קירור ומיזוג עד 5 טון <strong>(בהצטיינות)</strong></li>
-            <li class="list-item-rtl">✔ מוצרי חשמל ביתיים <strong>(בהצטיינות)</strong></li>
-            <li class="list-item-rtl">✔ חשמלאי מוסמך <strong>(בהצטיינות)</strong></li>
+            <li class="list-item-rtl checklist-item">✔ קירור ומיזוג עד 5 טון <strong>(בהצטיינות)</strong></li>
+            <li class="list-item-rtl checklist-item">✔ מוצרי חשמל ביתיים <strong>(בהצטיינות)</strong></li>
+            <li class="list-item-rtl checklist-item">✔ חשמלאי מוסמך <strong>(בהצטיינות)</strong></li>
           </ul>
         </div>
 
         <!-- תחומי התמחות -->
         <div class="info-card">
           <h2>🔧 תחומי התמחות</h2>
+
           <h3 class="subheading">טכנאי מוצרי חשמל ביתיים</h3>
           <p class="para">
-            תיקון כל סוגי <strong>מכונות הכביסה</strong>, <strong>מייבשי כביסה</strong>,
-            <strong>מדיחי כלים</strong>, <strong>תנורי אפייה</strong>.
+            מתמחה בתיקון כל סוגי <strong>מכונות הכביסה</strong>,
+            <strong>מייבשי הכביסה</strong>,
+            <strong>מדיחי הכלים</strong> ו<strong>תנורי האפייה</strong>.
           </p>
           <p class="para">
-            <strong>מומחה לחברות:</strong> LG · BEKO · WHIRLPOOL · SIEMENS · BOSCH · SAMSUNG · AEG
+            <strong>מומחה למותגים:</strong>
+            <a href="https://www.lg.com/" target="_blank" rel="noopener noreferrer">LG</a> ·
+            <a href="https://www.beko.com/" target="_blank" rel="noopener noreferrer">BEKO</a> ·
+            <a href="https://www.whirlpool.com/" target="_blank" rel="noopener noreferrer">WHIRLPOOL</a> ·
+            <a href="https://www.siemens-home.bsh-group.com/" target="_blank" rel="noopener noreferrer">SIEMENS</a> ·
+            <a href="https://www.bosch-home.com/" target="_blank" rel="noopener noreferrer">BOSCH</a> ·
+            <a href="https://www.samsung.com/" target="_blank" rel="noopener noreferrer">SAMSUNG</a> ·
+            <a href="https://www.aeg.com/" target="_blank" rel="noopener noreferrer">AEG</a> ·
+            <a href="https://www.electra.co.il/" target="_blank" rel="noopener noreferrer">ELECTRA</a> ·
+            <a href="https://www.midea.com/" target="_blank" rel="noopener noreferrer">MIDEA</a> ·
+            <a href="https://www.sharpconsumer.com/" target="_blank" rel="noopener noreferrer">SHARP</a> ·
+            <a href="https://www.haier.com/" target="_blank" rel="noopener noreferrer">HAIER</a> ·
+            <a href="https://www.toshiba-lifestyle.com/" target="_blank" rel="noopener noreferrer">TOSHIBA</a>
           </p>
-          <h3 class="subheading">טכנאי מקררים</h3>
+          
+
+          <h3 class="subheading">טכנאי מקררים מקפיאים ומזגנים</h3>
           <p class="para">
-            תיקון כל סוגי <strong>המקררים והמקפיאים</strong> מכל החברות.<br />
-            <strong>מומחה לחברות:</strong> BEKO · BLUMBERG · LG · TADIRAN · AMCOR · AMANA · SAMSUNG
+            מתקן את כל סוגי <strong>המקררים והמקפיאים</strong> מכל החברות.
           </p>
           <p class="para">
-            <strong>שירותים:</strong> מילוי גז, וואקום גז, תיקון דליפות, החלפת מדחסים, מאווררים,
-            גופי חימום, תרמוסטטים, פילטרים, אייס מייקרים, כרטיסי בקרה וחיישנים.
+            <strong>מומחה למותגים:</strong>
+            <a href="https://www.beko.com/" target="_blank" rel="noopener noreferrer">BEKO</a> ·
+            <a href="https://www.blombergappliances.com/" target="_blank" rel="noopener noreferrer">BLUMBERG</a> ·
+            <a href="https://www.lg.com/" target="_blank" rel="noopener noreferrer">LG</a> ·
+            <a href="https://www.tadiran-group.co.il/" target="_blank" rel="noopener noreferrer">TADIRAN</a> ·
+            <a href="https://www.amcor.co.il/" target="_blank" rel="noopener noreferrer">AMCOR</a> ·
+            <a href="https://www.amana-hac.com/" target="_blank" rel="noopener noreferrer">AMANA</a> ·
+            <a href="https://www.samsung.com/" target="_blank" rel="noopener noreferrer">SAMSUNG</a>
+          </p>
+
+          <h3 class="subheading">שירותים נוספים</h3>
+          <p class="para">
+            <strong>כולל:</strong> מילוי ווואקום גז, תיקון דליפות, החלפת מדחסים ומאווררים,
+            תיקון גופי חימום ותרמוסטטים, החלפת פילטרים ואייס מייקרים,
+            וכן תיקון כרטיסי בקרה וחיישנים.
           </p>
         </div>
+
+
 
         <!-- ניסיון ושירות -->
         <div class="info-card">
           <h2>🧠 ניסיון ושירות</h2>
           <ul class="list-clean">
-            <li class="list-item-rtl">✔ מעל <strong>20 שנות ניסיון</strong> בתחום</li>
-            <li class="list-item-rtl">
+            <li class="list-item-rtl checklist-item">✔ מעל <strong>20 שנות ניסיון</strong> בתחום</li>
+            <li class="list-item-rtl checklist-item">
               ✔ שירות <strong>מהיר, אמין ומקצועי</strong> – ברמה גבוהה מאוד
             </li>
-            <li class="list-item-rtl">✔ התחייבות לשירות <strong>אדיב ומחירים נוחים</strong></li>
-            <li class="list-item-rtl">✔ <strong>אחריות מלאה</strong> על כל עבודה וחלפים</li>
-            <li class="list-item-rtl">✔ שירות ללקוחות <strong>פרטיים, מוסדות ועסקים</strong></li>
+            <li class="list-item-rtl checklist-item">✔ התחייבות לשירות <strong>אדיב ומחירים נוחים</strong></li>
+            <li class="list-item-rtl checklist-item">✔ <strong>אחריות מלאה</strong> על כל עבודה וחלפים</li>
+            <li class="list-item-rtl checklist-item">✔ שירות ללקוחות <strong>פרטיים, מוסדות ועסקים</strong></li>
           </ul>
         </div>
       </div>
@@ -137,123 +165,81 @@
         <h5>אני בעל רישיון חשמלאי מוסמך מס 975186</h5>
       </div>
 
+      <div class="info-card">
+        <h2>📍קישורים</h2>
+        <ul class="links-list">
+          <li>
+            <a href="https://experts.easy.co.il/%D7%98%D7%9B%D7%A0%D7%95-%D7%92%D7%95/" target="_blank"
+              rel="noopener noreferrer" title="כתבה על טכנו ג'ו (ג'ואל קרבסי) באתר Experts – אזכור מהתכנית 'יצאת צדיק'">
+              <img class="link-image" src="assets\icons\tzadik.png" alt="לוגו Easy - ביקורת טכנו ג'ו בתוכנית יצאתי צדיק" width="20" height="20"
+                style="vertical-align: middle; margin-left: 6px;">
+              <span class="link-text-container"> טכנו ג'ו - יצאתי צדיק הכתבה עליי </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.b144.co.il/b144_sip/4A1404134470655D4C10001B457866554A/" target="_blank"
+              rel="noopener noreferrer" title="עמוד העסק הרשמי של טכנו ג'ו באתר B144 – תיקון מוצרי חשמל, יצאת צדיק">
+              <img class="link-image rotate-90" src="assets\icons\144_icon.png" alt="לוגו B144 - עמוד העסק של טכנו ג'ו" width="20" height="20"
+                style="vertical-align: middle; margin-left: 6px;">
+              <span class="link-text-container">עמוד העסק ב-B144 – טכנו ג'ו</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+
     </section>
   </section>
 
-  <section class="gallery page-container">
+  <section class="gallery page-container" aria-label="גלריית עבודות תיקון מוצרי חשמל">
     <div id="workCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
       <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#workCarousel"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#workCarousel"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#workCarousel"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#workCarousel"
-          data-bs-slide-to="3"
-          aria-label="Slide 4"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#workCarousel"
-          data-bs-slide-to="4"
-          aria-label="Slide 5"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#workCarousel"
-          data-bs-slide-to="5"
-          aria-label="Slide 6"
-        ></button>
+        <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+          aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img
-            src="/assets/appliance technician/gallery/work1.jpg"
-            class="d-block w-100"
-            alt="תיקון מכונת כביסה - עבודת תיקון מקצועית"
-            loading="lazy"
-          />
+          <img src="/assets/appliance technician/gallery/work1.jpg" class="d-block w-100"
+            alt="תיקון מכונת כביסה - עבודת תיקון מקצועית" loading="lazy" />
         </div>
         <div class="carousel-item">
-          <img
-            src="/assets/appliance technician/gallery/work2.jpg"
-            class="d-block w-100"
-            alt="תיקון מקרר - עבודת תיקון מקצועית"
-            loading="lazy"
-          />
+          <img src="/assets/appliance technician/gallery/work2.jpg" class="d-block w-100"
+            alt="תיקון מקרר - עבודת תיקון מקצועית" loading="lazy" />
         </div>
         <div class="carousel-item">
-          <img
-            src="/assets/appliance technician/gallery/work3.jpg"
-            class="d-block w-100"
-            alt="תיקון מדיח כלים - עבודת תיקון מקצועית"
-            loading="lazy"
-          />
+          <img src="/assets/appliance technician/gallery/work3.jpg" class="d-block w-100"
+            alt="תיקון מדיח כלים - עבודת תיקון מקצועית" loading="lazy" />
         </div>
         <div class="carousel-item">
-          <img
-            src="/assets/appliance technician/gallery/work4.jpg"
-            class="d-block w-100"
-            alt="תיקון תנור - עבודת תיקון מקצועית"
-            loading="lazy"
-          />
+          <img src="/assets/appliance technician/gallery/work4.jpg" class="d-block w-100"
+            alt="תיקון תנור - עבודת תיקון מקצועית" loading="lazy" />
         </div>
         <div class="carousel-item">
-          <img
-            src="/assets/appliance technician/gallery/work5.jpg"
-            class="d-block w-100"
-            alt="תיקון מייבש כביסה - עבודת תיקון מקצועית"
-            loading="lazy"
-          />
+          <img src="/assets/appliance technician/gallery/work5.jpg" class="d-block w-100"
+            alt="תיקון מייבש כביסה - עבודת תיקון מקצועית" loading="lazy" />
         </div>
         <div class="carousel-item">
-          <img
-            src="/assets/appliance technician/gallery/work6.jpg"
-            class="d-block w-100"
-            alt="תיקון מזגן - עבודת תיקון מקצועית"
-            loading="lazy"
-          />
+          <img src="/assets/appliance technician/gallery/work6.jpg" class="d-block w-100"
+            alt="תיקון מזגן - עבודת תיקון מקצועית" loading="lazy" />
         </div>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#workCarousel"
-        data-bs-slide="prev"
-      >
+      <button class="carousel-control-prev" type="button" data-bs-target="#workCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">הקודם</span>
       </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#workCarousel"
-        data-bs-slide="next"
-      >
+      <button class="carousel-control-next" type="button" data-bs-target="#workCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">הבא</span>
       </button>
     </div>
   </section>
 
-  <section class="testimonials">
+  <section class="testimonials" aria-label="ביקורות לקוחות">
     <div class="testimonials-grid page-container" dir="rtl">
       <div class="testimonial-card">
         <div class="testimonial-text">
@@ -329,45 +315,37 @@
     </div>
   </section>
 
-  <section class="contact" id="contact-home">
+  <section class="contact" id="contact-home" aria-label="צור קשר עם טכנאי מוצרי חשמל">
     <div class="contact__title-bar">
       <h2 class="contact__title">צור קשר</h2>
+      <p class="para" style="text-align: center; margin: 10px 0 20px; max-width: 700px; margin-left: auto; margin-right: auto;">
+        טכנאי מוצרי חשמל מקצועי זמין לשירות מהיר. 
+         צור קשר ונחזור אליך בהקדם. 
+        שירות מהיר, אמין ומקצועי עם אחריות מלאה על כל עבודה.
+      </p>
     </div>
     <div class="section__inner contact__grid page-container">
       <div class="contact__left">
-        <a
-          href="https://wa.me/972544818383"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="social-icon social-icon--whatsapp"
-          aria-label="WhatsApp"
-        >
+        <a href="https://wa.me/972544818383" target="_blank" rel="noopener noreferrer"
+          class="social-icon social-icon--whatsapp" aria-label="WhatsApp">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path
-              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"
-            />
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
           </svg>
           <!-- <span>וואטסאפ</span> -->
         </a>
-        <a href="tel:+972544818383" class="social-icon social-icon--phone" aria-label="Phone">
+        <a href="tel:+972544818383" class="social-icon social-icon--phone" aria-label="Phone" (click)="onPhoneClick()">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path
-              d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"
-            />
+              d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
           </svg>
           <!-- <span>טלפון</span> -->
         </a>
-        <a
-          href="https://www.facebook.com/share/17Xv2ccgVc/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="social-icon social-icon--facebook"
-          aria-label="Facebook"
-        >
+        <a href="https://www.facebook.com/share/17Xv2ccgVc/" target="_blank" rel="noopener noreferrer"
+          class="social-icon social-icon--facebook" aria-label="Facebook">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path
-              d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
-            />
+              d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
           </svg>
           <!-- <span>פייסבוק</span> -->
         </a>
@@ -375,61 +353,37 @@
       <form class="contact__form" [formGroup]="contactForm" (ngSubmit)="submitContact()">
         <div class="row">
           <div class="field">
-            <input
-              placeholder="שם"
-              formControlName="name"
-              class="mail-text"
-              [class.invalid]="submitted && contactForm.get('name')?.invalid"
-            />
+            <input placeholder="שם" formControlName="name" class="mail-text"
+              [class.invalid]="submitted && contactForm.get('name')?.invalid" />
             <div class="error-text" *ngIf="submitted && contactForm.get('name')?.errors">
               <span *ngIf="contactForm.get('name')?.errors?.['required']">יש להזין שם</span>
-              <span *ngIf="contactForm.get('name')?.errors?.['minlength']"
-                >השם חייב להכיל לפחות 2 תווים</span
-              >
+              <span *ngIf="contactForm.get('name')?.errors?.['minlength']">השם חייב להכיל לפחות 2 תווים</span>
             </div>
           </div>
           <div class="field">
-            <input
-              placeholder="מספר טלפון"
-              formControlName="phone"
-              class="mail-text"
-              [class.invalid]="submitted && contactForm.get('phone')?.invalid"
-            />
+            <input placeholder="מספר טלפון" formControlName="phone" class="mail-text"
+              [class.invalid]="submitted && contactForm.get('phone')?.invalid" />
             <div class="error-text" *ngIf="submitted && contactForm.get('phone')?.errors">
-              <span *ngIf="contactForm.get('phone')?.errors?.['required']"
-                >יש להזין מספר טלפון</span
-              >
-              <span *ngIf="contactForm.get('phone')?.errors?.['pattern']"
-                >מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10 ספרות</span
-              >
+              <span *ngIf="contactForm.get('phone')?.errors?.['required']">יש להזין מספר טלפון</span>
+              <span *ngIf="contactForm.get('phone')?.errors?.['pattern']">מספר טלפון חייב להתחיל ב-0 ולהכיל בדיוק 10
+                ספרות</span>
             </div>
           </div>
         </div>
         <div class="field">
-          <input
-            placeholder="עיר"
-            formControlName="city"
-            class="mail-text"
-            [class.invalid]="submitted && contactForm.get('city')?.invalid"
-          />
+          <input placeholder="עיר" formControlName="city" class="mail-text"
+            [class.invalid]="submitted && contactForm.get('city')?.invalid" />
           <div class="error-text" *ngIf="submitted && contactForm.get('city')?.errors">
             <span *ngIf="contactForm.get('city')?.errors?.['required']">יש להזין עיר</span>
             <span *ngIf="contactForm.get('city')?.errors?.['minlength']">העיר חייבת להכיל לפחות 2 תווים</span>
           </div>
         </div>
         <div class="field">
-          <textarea
-            rows="5"
-            placeholder="הודעה"
-            class="mail-text"
-            formControlName="message"
-            [class.invalid]="submitted && contactForm.get('message')?.invalid"
-          ></textarea>
+          <textarea rows="5" placeholder="הודעה" class="mail-text" formControlName="message"
+            [class.invalid]="submitted && contactForm.get('message')?.invalid"></textarea>
           <div class="error-text" *ngIf="submitted && contactForm.get('message')?.errors">
             <span *ngIf="contactForm.get('message')?.errors?.['required']">יש להזין הודעה</span>
-            <span *ngIf="contactForm.get('message')?.errors?.['minlength']"
-              >ההודעה חייבת להכיל לפחות 5 תווים</span
-            >
+            <span *ngIf="contactForm.get('message')?.errors?.['minlength']">ההודעה חייבת להכיל לפחות 5 תווים</span>
           </div>
         </div>
         <div class="actions">
@@ -446,13 +400,8 @@
   <section class="credit-section">
     <div class="page-container credit-inner">
       אתר זה נבנה על ידי
-      <a
-        href="https://yuval1984.github.io/profile/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="credit-link"
-        >יובל קוגן</a
-      >
+      <a href="https://yuval1984.github.io/profile/" target="_blank" rel="noopener noreferrer" class="credit-link">יובל
+        קוגן</a>
     </div>
   </section>
 </div>
