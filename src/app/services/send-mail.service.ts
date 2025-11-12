@@ -21,7 +21,7 @@ export class SendMailService {
   constructor(private http: HttpClient) {}
 
   // When true, open a mailto link instead of calling the API
-  shouldSendMailLocally = true;
+  shouldSendMailLocally = false;
 
   /**
    * Send email via external mail server
