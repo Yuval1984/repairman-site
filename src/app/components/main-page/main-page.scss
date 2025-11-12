@@ -9,6 +9,8 @@
   background-opacity: 0.2;
   background-filter: blur(10px);
   width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .page-container {
@@ -21,6 +23,8 @@
     'Segoe UI Emoji';
   display: block;
   width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .hero {
@@ -36,8 +40,17 @@
 /* Intro card animation - slide from top */
 .intro-card {
   opacity: 0;
-  animation: introSlideDown 1100ms ease-out 0ms forwards;
+  transform: translate3d(0, -150px, 0);
   will-change: transform, opacity;
+  /* Animation paused initially - will be started in browser only */
+  animation: introSlideDown 1100ms ease-out 0ms forwards;
+  animation-play-state: paused;
+}
+
+/* Start animation only in browser (not SSR) */
+:host-context(.browser) .intro-card,
+.intro-card.animate-ready {
+  animation-play-state: running;
 }
 @keyframes introSlideDown {
   from {

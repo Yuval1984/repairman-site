@@ -98,11 +98,18 @@ export class MainPage implements OnInit, OnDestroy {
       // Inject main page schema
       const schema = this.jsonLdService.getMainPageSchema();
       this.jsonLdService.injectSchema('ld-json-main-page', schema);
-    }
 
-    // Remove animation after it completes to allow smooth transitions
-    // Animation duration is 1100ms + max delay ~180ms = ~1280ms, wait 1500ms to be safe
-    if (this.isBrowser) {
+      // Start intro-card animation immediately in browser (prevent SSR flicker)
+      // Use requestAnimationFrame to ensure DOM is ready
+      requestAnimationFrame(() => {
+        const introCard = document.querySelector('.intro-card') as HTMLElement;
+        if (introCard) {
+          introCard.classList.add('animate-ready');
+        }
+      });
+
+      // Remove animation after it completes to allow smooth transitions
+      // Animation duration is 1100ms + max delay ~180ms = ~1280ms, wait 1500ms to be safe
       setTimeout(() => {
         const cards = document.querySelectorAll('.info-card');
         cards.forEach(card => {
@@ -122,6 +129,9 @@ export class MainPage implements OnInit, OnDestroy {
           const introCard = document.querySelector('.intro-card') as HTMLElement;
           if (introCard) {
             introCard.style.willChange = 'auto';
+            // Ensure final state is preserved
+            introCard.style.transform = 'translate3d(0, 0, 0)';
+            introCard.style.opacity = '1';
           }
 
           const testimonialCards = document.querySelectorAll('.testimonial-card');
